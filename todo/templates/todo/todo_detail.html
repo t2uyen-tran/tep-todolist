@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>to-do list</title>
+</head>
+<body>
+    {% if request.user.is_authenticated %}
+        <h4>Hi, {{ request.user.username }}</h4>
+    {% else %}
+        <h4>Hi, please login</h4>
+    {% endif %}
+    <p>todoname: {{ todo.taskName }}</p>
+    <p>duedate: {{ todo.taskDueDate }}</p>
+    <p><a href="/{{todo.id}}/update/">update</a></p>
+    <p><a href="/{{todo.id}}/delete/">delete</a></p>
+</body>
+</html>
+
+

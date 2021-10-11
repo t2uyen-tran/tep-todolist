@@ -1,0 +1,59 @@
+{% load static %}
+{% load todo_extras %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'todo/style.css' %}">
+    <title>My Task List</title>
+</head>
+<body id='homebackground'>
+    <div class="header">
+        <div class="container" clearfix>
+            <div class="logo">
+                <p>P&NP</p>
+            </div>
+            <ul class="list">
+                <li><a href="/">Dashboard</a></li>
+                <li><a href="/create/">My Projects</a></li>
+                <li><a href="/mytask/">My Tasks</a></li>
+            </ul>
+            <div class="search">
+                <form>
+                     <input type="submit" value="search" class="search1">
+                    <input type="text" class="content1">
+                </form>
+            </div>
+        </div>
+    </div>  
+    <table id = "mytasktable">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Task</th>
+                <th>Due date</th>
+                <th>Priority</th>
+            </tr>
+            <tr>
+                {% for todo in todo_list %}
+                <th><a href="/{{ todo.id }}/">{{ todo.taskName }}</a></th>
+                <th>{{ todo.taskDueDate }}</th>
+                <th>{{ todo|displayName:'taskPriority' }}</th>
+                {% endfor %}
+            </tr>
+
+    <footer>
+        <p>
+        Contact: <a href="mailto:103538753@student.swin.edu.au">TEAM1</a></p>
+        <p>Follow us: 
+          <a href="https://www.facebook.com/Atlassian"><img class='textup' src="{% static 'todo/images/facebook.png' %}" alt="Facebook Logo" height="15" width="15" /></a>
+          <a href="https://twitter.com/atlassian/"><img class='textup' src="{% static 'todo/images/twitter.png' %}" alt="Twitter Logo" height="15" width="15" /></a>
+          <a href="https://www.linkedin.com/company/atlassian/"><img class='textup' src="{% static 'todo/images/linkedin.png' %}" alt="Linkedin Logo" height="15" width="15" /></a>
+          <a href="https://www.youtube.com/user/GoAtlassian"><img class='textup' src="{% static 'todo/images/youtube.png' %}" alt="Youtube Logo" height="15" width="15" /></a></p>
+          <p>Copyright &#169;<a href="http://www.swin.edu.au">Swinburne University of Technology</a></p>
+      </footer>
+</body>
+</html>
+
