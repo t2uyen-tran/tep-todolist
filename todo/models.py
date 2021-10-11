@@ -32,6 +32,7 @@ class Employee(models.Model):
 class Project(models.Model):
     projectName = models.CharField(max_length=30, default='SOME STRING')
     creationDate = models.DateField()
+    endDate = models.DateField(default = "2021-10-11")
     projectOwner = models.CharField(max_length=30, default='SOME STRING')
     projectDescription = models.CharField(max_length=30, default='SOME STRING')
     # department = models.ForeignKey(Department, on_delete = models.CASCADE, default= 1)
