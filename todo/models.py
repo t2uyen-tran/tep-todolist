@@ -32,8 +32,9 @@ class Employee(models.Model):
 class Project(models.Model):
     projectName = models.CharField(max_length=30, default='SOME STRING')
     creationDate = models.DateField()
-    endDate = models.DateField(default = "2021-10-11")
-    projectOwner = models.CharField(max_length=30, default='SOME STRING')
+    projectCreate = models.ForeignKey(
+        Employee, on_delete=models.CASCADE, default=1, related_name='projectcreate')
+    endDate = models.DateField(default="2021-10-11")
     projectDescription = models.CharField(max_length=30, default='SOME STRING')
     # department = models.ForeignKey(Department, on_delete = models.CASCADE, default= 1)
     employee = models.ManyToManyField(Employee)
@@ -53,6 +54,8 @@ class Todo(models.Model):
     #     return self.name
     taskName = models.CharField(max_length=30, default='SOME STRING')
     taskDescription = models.CharField(max_length=30, default='SOME STRING')
+    taskCreate = models.ForeignKey(
+        Employee, on_delete=models.CASCADE, default=1, related_name='taskcreate')
     taskDueDate = models.DateField()
     priority_choices = [
         (0, 'High'),
