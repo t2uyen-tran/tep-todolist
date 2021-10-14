@@ -1,14 +1,7 @@
 from django.conf import settings
 from django.urls import path
-from .views import tasks, dashboard
+from .views import tasks, filter
 
-#from todo import views
-
-# from todo.views import (todo_list,
-#                    todo_detail,
-#                   todo_create,
-#                    todo_update,
-#                    todo_delete)
 
 app_name = "todo"
 
@@ -21,5 +14,6 @@ urlpatterns = [
     path('<int:id>/update/', tasks.todo_update),
     path('<int:id>/delete/', tasks.todo_delete),
     path('mytask/', tasks.todo_mytask),
+    path('notifications/', filter.notifications, name='notifications'),
     path('myproject/', tasks.todo_myproject, name='todo_myproject'),
 ]

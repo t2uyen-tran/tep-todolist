@@ -1,0 +1,18 @@
+<!--UT: Notification page:
+        - notify the tasks due in 14 days
+        - notify the new project assigned in the last 7 days-->
+
+{% extends 'base.html' %}
+
+{% block title %}Notifications{% endblock %}
+
+{% block content %}
+  <h2>Notifications</h2>
+    {% csrf_token %}
+    <h3>Tasks due in 14 days</h3>
+
+    <h3>Newly assigned tasks</h3>
+
+    <h3>Newly involved projects</h3>
+
+{% endblock %}

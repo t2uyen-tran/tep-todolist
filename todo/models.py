@@ -7,8 +7,8 @@ from django.db.models.fields.related import ForeignKey
 
 
 class Department(models.Model):
-    departmentName = models.CharField(max_length=30, default='SOME STRING')
-    departmentLocation = models.CharField(max_length=30, default='SOME STRING')
+    departmentName = models.CharField(max_length=50, default='SOME STRING')
+    departmentLocation = models.CharField(max_length=50, default='SOME STRING')
     # manage = models.OneToOneField(Employee, on_delete = models.CASCADE)
 
     class Meta:
@@ -25,17 +25,17 @@ class Employee(models.Model):
     class Meta:
         db_table = "%s" % ("Employee")
 
-    def __str__(self):
-        return self.user
+    # def __str__(self):
+        #return self.user
 
 
 class Project(models.Model):
-    projectName = models.CharField(max_length=30, default='SOME STRING')
+    projectName = models.CharField(max_length=50, default='SOME STRING')
     creationDate = models.DateField()
     projectCreate = models.ForeignKey(
         Employee, on_delete=models.CASCADE, default=1, related_name='projectcreate')
     endDate = models.DateField(default="2021-10-11")
-    projectDescription = models.CharField(max_length=30, default='SOME STRING')
+    projectDescription = models.CharField(max_length=500, default='SOME STRING')
     # department = models.ForeignKey(Department, on_delete = models.CASCADE, default= 1)
     employee = models.ManyToManyField(Employee)
 
@@ -52,8 +52,8 @@ class Todo(models.Model):
 
     # def __str__(self):
     #     return self.name
-    taskName = models.CharField(max_length=30, default='SOME STRING')
-    taskDescription = models.CharField(max_length=30, default='SOME STRING')
+    taskName = models.CharField(max_length=50, default='SOME STRING')
+    taskDescription = models.CharField(max_length=500, default='SOME STRING')
     taskCreate = models.ForeignKey(
         Employee, on_delete=models.CASCADE, default=1, related_name='taskcreate')
     taskDueDate = models.DateField()
@@ -66,7 +66,7 @@ class Todo(models.Model):
         default=0, choices=priority_choices)
     taskComplete = models.BooleanField(default=False)
     project = models.ForeignKey(Project, on_delete=models.CASCADE, default=1)
-    employee = models.ManyToManyField(Employee)
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE, default=1)
 
     class Meta:
         db_table = "%s" % ("Todo")

@@ -23,5 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('login', auth_views.LoginView.as_view(), name='login'),
     path('logout', auth_views.LogoutView.as_view(), name='logout'),
+    path('change-password', auth_views.PasswordChangeView.as_view(), name='change_password'),
     path('todo/', include('todo.urls', namespace='todo'))
 ]

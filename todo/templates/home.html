@@ -1,8 +1,19 @@
+<!--UT: Static homepage to give some introduction about the project, with Login button -->
+
 {% extends 'base.html' %}
 
 {% block title %}Home{% endblock %}
 
 {% block content %}
   <h3>Home</h3>
-    Uyen to write something here with Login button
+    <p>Write something about the TEP project here .. </p>
+
+    <p>
+        {% if user.is_authenticated %}
+            You are already logged in.
+        {% else %}
+            <a href="{% url 'login' %}" class="btn btn-primary">Log In</a>
+        {% endif %}
+    </p>
+
 {% endblock %}

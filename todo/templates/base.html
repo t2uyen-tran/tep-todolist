@@ -1,3 +1,6 @@
+<!--UT: this is the base web pages, structure the pages in different block
+------- Style with CSS bootstrap. Site navigation is designed here-->
+
 {% load static %}
 <!doctype html>
 <html lang="en">
@@ -5,7 +8,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="team1" content="">
     {% block title %}<title>Todo List</title>{% endblock %}
 
     <!-- Bootstrap core CSS -->
@@ -13,6 +16,9 @@
 
       <!-- Custom styles for this template -->
     <link href="{% static 'css/sticky-footer-navbar.css' %}" rel='stylesheet'>
+    <link href="{% static 'css/styles.css' %}" rel='stylesheet'>
+
+
 
     {# Additional CSS or html head data inserted by templates here. #}
     {% block extrahead %}{% endblock extrahead %}
@@ -23,7 +29,7 @@
     <header>
       <!-- Fixed navbar -->
       <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="/">django-todo</a>
+        <a class="navbar-brand" href="/">P&NP</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -34,17 +40,25 @@
                    <li class="nav-item"><a href="{% url 'todo:todo_myproject' %}" class="nav-link">My Projects</a></li>
               <li class="nav-item"><a href="" class="nav-link">My Tasks</a></li>
               <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Log Out</a></li>
-              {# Simulate external user adding ticket #}
+
+            <!--UT: Only show "Login" function on nav if user is not authenticated-->
             {% else %}
               <li class="nav-item"><a href="{% url 'login' %}" class="nav-link">Log In</a></li>
             {% endif %}
           </ul>
 
           {% if user.is_authenticated %}
-      		  <form class="form-inline mt-2 mt-md-0" action="" method="get" placeholder="Search" aria-label="Search">
-              <input type="text" name="q" value="" class="form-control mr-sm-2" id="q">
-              <input type="submit" value="Search Tasks" class="btn btn-outline-success my-2 my-sm-0">
-            </form>
+              <!--UT: Add "notification" button to navbar-->
+              <div>
+                  <button type="button" class="btn btn-primary my-2 my-sm-0">
+                      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>!
+                  </button>
+              </div>
+
+              <form class="form-inline mt-2 mt-md-0" action="" method="get" placeholder="Search" aria-label="Search">
+                <input type="text" name="q" value="" class="form-control mr-sm-2" id="q">
+                <input type="submit" value="Search Tasks" class="btn btn-outline-success my-2 my-sm-0">
+              </form>
           {% endif %}
 
         </div>
@@ -68,8 +82,12 @@
     <footer class="footer">
       <div class="container">
         <span class="text-muted">
-          django-todo, {% now "Y" %}.
-          {% if user.is_authenticated %}Logged in as {{ user.username }}{% endif %}</span>
+          ToDoList project - Team 1, {% now "Y" %}.
+          {% if user.is_authenticated %}
+              Logged in as {{ user.username }}
+              <a href="{% url 'change_password' %}" >Change password</a>
+          {% endif %}
+        </span>
       </div>
     </footer>
 
