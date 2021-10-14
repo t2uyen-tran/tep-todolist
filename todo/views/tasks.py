@@ -61,3 +61,12 @@ def todo_mytask(request):  # Tracy
         "todo_list": todos
     }
     return render(request, "todo/todo_mytask.html", context)
+
+
+@login_required
+def todo_myproject(request):  # Tracy
+    todos = Todo.objects.all()
+    context = {
+        "todo_list": todos
+    }
+    return render(request, "todo/todo_myproject.html", context)
