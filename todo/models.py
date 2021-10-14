@@ -9,6 +9,7 @@ from django.db.models.fields.related import ForeignKey
 class Department(models.Model):
     departmentName = models.CharField(max_length=50, default='SOME STRING')
     departmentLocation = models.CharField(max_length=50, default='SOME STRING')
+
     # manage = models.OneToOneField(Employee, on_delete = models.CASCADE)
 
     class Meta:
@@ -20,13 +21,14 @@ class Department(models.Model):
 
 class Employee(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, default=1)
+
     # department =  models.ForeignKey(Department, on_delete = models.CASCADE, default= 1)
 
     class Meta:
         db_table = "%s" % ("Employee")
 
-    # def __str__(self):
-        #return self.user
+    def __str__(self):
+        return self.user.username
 
 
 class Project(models.Model):
