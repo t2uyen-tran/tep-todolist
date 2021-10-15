@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>to-do list</title>
-</head>
-<body>
+{% extends '../base.html' %}
+{% block title %}Task detail{% endblock %}
+{% block content %}
+{% load static %}
+{% load todo_extras %}
     {% if request.user.is_authenticated %}
         <h4>Hi, {{ request.user.username }}</h4>
     {% else %}
@@ -16,7 +12,6 @@
     <p>duedate: {{ todo.taskDueDate }}</p>
     <p><a href="/{{todo.id}}/update/">update</a></p>
     <p><a href="/{{todo.id}}/delete/">delete</a></p>
-</body>
-</html>
+{% endblock %}
 
 

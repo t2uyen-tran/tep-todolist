@@ -70,3 +70,10 @@ def todo_myproject(request):  # Tracy
         "todo_list": todos
     }
     return render(request, "todo/todo_myproject.html", context)
+
+def todo_myproject(request):  # Tracy
+    todos = Todo.objects.all()
+    context = {
+        "todo_list": todos
+    }
+    return render(request, "todo/todo_myproject.html", context)
