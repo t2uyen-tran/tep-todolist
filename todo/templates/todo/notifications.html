@@ -10,9 +10,12 @@
   <h2>Notifications</h2>
     {% csrf_token %}
     <h3>Tasks due in 14 days</h3>
-
-    <h3>Newly assigned tasks</h3>
-
-    <h3>Newly involved projects</h3>
-
+    {% for todo in todos %}
+        <div id="{{ todo.id }}" class="notification_entry">
+            <ul>
+                <li><a href="">{{ todo.taskName|truncatewords:10 }}</a></li>
+                <li>{{ todo.taskDueDate|date:"m/d/Y" }}</li>
+            </ul>
+        </div>
+    {% endfor %}
 {% endblock %}

@@ -36,7 +36,7 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav mr-auto">
             {% if user.is_authenticated %}
-              <li class="nav-item"><a href="{% url 'todo:todo_lists' %}" class="nav-link">Todo Lists</a></li>
+              <li class="nav-item"><a href="{% url 'todo:todo_lists' %}" class="nav-link">Dashboard</a></li>
                    <li class="nav-item"><a href="{% url 'todo:todo_myproject' %}" class="nav-link">My Projects</a></li>
               <li class="nav-item"><a href="{% url 'todo:todo_mytask' %}" class="nav-link">My Tasks</a></li>
               <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Log Out</a></li>
