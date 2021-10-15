@@ -5,8 +5,8 @@ from .models import Todo, Project
 class TodoForm(forms.ModelForm):
     class Meta:
         model = Todo
-        fields = ('taskName', 'taskDescription',
-                  'taskDueDate', 'taskPriority', 'taskComplete', 'project')
+        fields = ('taskName', 'taskDescription', 'taskCreate',
+                  'taskDueDate', 'taskPriority', 'taskComplete', 'project', 'employee')
 
 
 class ProjectForm(forms.ModelForm):
