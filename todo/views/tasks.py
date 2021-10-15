@@ -77,9 +77,27 @@ def todo_projectcreate(request):
     form = ProjectForm(request.POST or None)
     if form.is_valid():
         form.save()
-        return redirect("/")
+        return redirect("/todo/myproject/")
 
     context = {
         "form": form
     }
     return render(request, "todo/todo_projectcreate.html", context)
+
+
+def todo_projectupdate(request, id):
+    project = Project.objects.get(id=id)
+    form = ProjectForm(request.POST or None, instance=project)
+    if form.is_valid():
+        form.save()
+        return redirect("/todo/myproject/")
+    context = {
+        "form": form
+    }
+    return render(request, "todo/todo_projectupdate.html", context)
+
+
+def todo_projectdelete(request, id):
+    project = Project.objects.get(id=id)
+    project.delete()
+    return redirect("/todo/myproject/")

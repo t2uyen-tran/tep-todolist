@@ -18,4 +18,8 @@ urlpatterns = [
     path('myproject/', tasks.todo_myproject, name='todo_myproject'),
     path('myproject/create/',
          tasks.todo_projectcreate),
+    path('myproject/<int:id>/update/',
+         tasks.todo_projectupdate),
+    path('myproject/<int:id>/delete/',
+         tasks.todo_projectdelete),
 ]

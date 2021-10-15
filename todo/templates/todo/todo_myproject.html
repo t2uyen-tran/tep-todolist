@@ -3,8 +3,9 @@
 {% block content %}
 {% load static %}
 {% load todo_extras %}
-<h1>Projects assigned to me</h1>
-<p class = "botton"><a href = "myproject/create/">Create</a></p>
+<link rel="stylesheet" type="text/css" href="{% static 'todo/style.css' %}">
+<h1>My Projects</h1>
+<p class = "botton"><a href = "create/">Create</a></p>
     <table class="table" id="tasktable">
       <tr class="nodrop">
         <th>Project</th>
@@ -22,8 +23,8 @@
           <td>{{ project.creationDate }}</td>
           <td>{{ project.endDate}}</td>
           <td>{{ project.projectDescription }}</td>
-          <td><a href="/myproject/{{project.id}}/update/">Edit</a></td>
-          <td><a href="/myproject/{{project.id}}/delete/">Delete</a></td>
+          <td><a href="{{project.id}}/update/">Edit</a></td>
+          <td><a href="{{project.id}}/delete/">Delete</a></td>
       </tr>
       {% endfor %}
     </table>
