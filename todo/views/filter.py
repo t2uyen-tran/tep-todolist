@@ -12,12 +12,18 @@ from django.shortcuts import render
 # Notification function:
 # - Display tasks due in 14 days, show in date orther or priority order
 # - display newly involve project (in the last 7 days
+from todo.models import Todo
+
+
 @login_required
 def notifications(request) -> HttpResponse:
 
     today = datetime.datetime.now()
 
+    todos = Todo.objects.filter(employee_id=request.user.id)
+
     context = {
         "today": today,
+        "todo": todos,
     }
     return render(request, "todo/notifications.html", context)
