@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from todo.forms import TodoForm
-from todo.models import Todo
+from todo.forms import TodoForm, ProjectForm
+from todo.models import Todo, Project
 from django.contrib.auth.decorators import login_required, user_passes_test
 
 
@@ -65,8 +65,21 @@ def todo_mytask(request):  # Tracy
 
 @login_required
 def todo_myproject(request):  # Tracy
-    todos = Todo.objects.all()
+    project = Project.objects.all()
     context = {
-        "todo_list": todos
+        "project_list": project
     }
     return render(request, "todo/todo_myproject.html", context)
+
+
+@login_required
+def todo_projectcreate(request):
+    form = ProjectForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect("/")
+
+    context = {
+        "form": form
+    }
+    return render(request, "todo/todo_projectcreate.html", context)

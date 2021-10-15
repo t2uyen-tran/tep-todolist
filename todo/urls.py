@@ -16,4 +16,6 @@ urlpatterns = [
     path('mytask/', tasks.todo_mytask),
     path('notifications/', filter.notifications, name='notifications'),
     path('myproject/', tasks.todo_myproject, name='todo_myproject'),
+    path('myproject/create/',
+         tasks.todo_projectcreate),
 ]

@@ -1,52 +1,30 @@
 {% extends '../base.html' %}
-
 {% block title %}Home{% endblock %}
-
 {% block content %}
-<h1>Tasks assigned to me (in all groups)</h1>
-    Jim needs to write something here with project list
+{% load static %}
+{% load todo_extras %}
+<h1>Projects assigned to me</h1>
+<p class = "botton"><a href = "myproject/create/">Create</a></p>
     <table class="table" id="tasktable">
       <tr class="nodrop">
-        <th>Task</th>
-        <th>Created</th>
+        <th>Project</th>
+        <th>Create</th>
+        <th>Creation Date</th>
         <th>Due on</th>
-        <th>Owner</th>
-        <th>Assigned</th>
-        <th>Mark</th>
+        <th>Description</th>
+        <th colspan="2">Modify</th>
       </tr>
 
-      <!-- {% for task in tasks %}
-        <tr id="{{ task.id }}">
-          <td>
-              <a href="{% url 'todo:task_detail' task.id %}">{{ task.title|truncatewords:10 }}</a>
-          </td>
-          <td>
-              {{ task.created_date|date:"m/d/Y" }}
-          </td>
-          <td>
-            <span {% if task.overdue_status %}class="overdue"{% endif %}>
-              {{ task.due_date|date:"m/d/Y" }}
-            </span>
-          </td>
-          <td>
-            {{ task.created_by }}
-          </td>
-          <td>
-            {% if task.assigned_to %}{{ task.assigned_to }}{% else %}Anyone{% endif %}
-          </td>
-          <td>
-            <form method="post" action="{% url "todo:task_toggle_done" task.id %}" role="form">
-              {% csrf_token %}
-              <button class="btn btn-info btn-sm" type="submit" name="toggle_done">
-                {% if view_completed %}
-                  Not Done
-                {% else %}
-                  Done
-                {% endif %}
-              </button>
-            </form>
-          </td>
-        </tr>
-      {% endfor %}-->
+      {% for project in project_list %}
+      <tr>
+          <td><a href="/myproject/{{ project.id }}/">{{ project.projectName }}</a></td>
+          <td>{{ project.projectCreate }}</td>
+          <td>{{ project.creationDate }}</td>
+          <td>{{ project.endDate}}</td>
+          <td>{{ project.projectDescription }}</td>
+          <td><a href="/myproject/{{project.id}}/update/">Edit</a></td>
+          <td><a href="/myproject/{{project.id}}/delete/">Delete</a></td>
+      </tr>
+      {% endfor %}
     </table>
 {% endblock %}

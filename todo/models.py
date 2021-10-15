@@ -1,9 +1,11 @@
+from django.conf import settings
 from django.db import models
 from django.db.models.base import Model
 from django.db.models.deletion import CASCADE
 from django.db.models.fields import BooleanField
 from django.contrib.auth.models import User
 from django.db.models.fields.related import ForeignKey
+from django.conf import settings
 
 
 class Department(models.Model):
@@ -19,27 +21,28 @@ class Department(models.Model):
         return self.departmentName
 
 
-class Employee(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, default=1)
+# class Employee(models.Model):
+#     user = models.OneToOneField(User, on_delete=models.CASCADE, default=1)
 
-    # department =  models.ForeignKey(Department, on_delete = models.CASCADE, default= 1)
+#     # department =  models.ForeignKey(Department, on_delete = models.CASCADE, default= 1)
 
-    class Meta:
-        db_table = "%s" % ("Employee")
+#     class Meta:
+#         db_table = "%s" % ("Employee")
 
-    def __str__(self):
-        return self.user.username
+#     def __str__(self):
+#         return self.user.username
 
 
 class Project(models.Model):
     projectName = models.CharField(max_length=50, default='SOME STRING')
     creationDate = models.DateField()
     projectCreate = models.ForeignKey(
-        Employee, on_delete=models.CASCADE, default=1, related_name='projectcreate')
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=1, related_name='projectcreate')
     endDate = models.DateField(default="2021-10-11")
-    projectDescription = models.CharField(max_length=500, default='SOME STRING')
+    projectDescription = models.CharField(
+        max_length=500, default='SOME STRING')
     # department = models.ForeignKey(Department, on_delete = models.CASCADE, default= 1)
-    employee = models.ManyToManyField(Employee)
+    employee = models.ManyToManyField(settings.AUTH_USER_MODEL)
 
     class Meta:
         db_table = "%s" % ("Project")
@@ -57,7 +60,7 @@ class Todo(models.Model):
     taskName = models.CharField(max_length=50, default='SOME STRING')
     taskDescription = models.CharField(max_length=500, default='SOME STRING')
     taskCreate = models.ForeignKey(
-        Employee, on_delete=models.CASCADE, default=1, related_name='taskcreate')
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=1, related_name='taskcreate')
     taskDueDate = models.DateField()
     priority_choices = [
         (0, 'High'),
@@ -68,7 +71,8 @@ class Todo(models.Model):
         default=0, choices=priority_choices)
     taskComplete = models.BooleanField(default=False)
     project = models.ForeignKey(Project, on_delete=models.CASCADE, default=1)
-    employee = models.ForeignKey(Employee, on_delete=models.CASCADE, default=1)
+    employee = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=1)
 
     class Meta:
         db_table = "%s" % ("Todo")
