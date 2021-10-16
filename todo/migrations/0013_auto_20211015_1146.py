@@ -13,27 +13,27 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name='project',
-            name='employee',
-            field=models.ManyToManyField(to=settings.AUTH_USER_MODEL),
-        ),
-        migrations.AlterField(
-            model_name='project',
-            name='projectCreate',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, related_name='projectcreate', to=settings.AUTH_USER_MODEL),
-        ),
-        migrations.AlterField(
-            model_name='todo',
-            name='employee',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
-        ),
-        migrations.AlterField(
-            model_name='todo',
-            name='taskCreate',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, related_name='taskcreate', to=settings.AUTH_USER_MODEL),
-        ),
-        migrations.DeleteModel(
-            name='Employee',
-        ),
+        # migrations.AlterField(
+        #     model_name='project',
+        #     name='employee',
+        #     field=models.ManyToManyField(to=settings.AUTH_USER_MODEL),
+        # ),
+        # migrations.AlterField(
+        #     model_name='project',
+        #     name='projectCreate',
+        #     field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, related_name='projectcreate', to=settings.AUTH_USER_MODEL),
+        # ),
+        # migrations.AlterField(
+        #     model_name='todo',
+        #     name='employee',
+        #     field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+        # ),
+        # migrations.AlterField(
+        #     model_name='todo',
+        #     name='taskCreate',
+        #     field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, related_name='taskcreate', to=settings.AUTH_USER_MODEL),
+        # ),
+        # migrations.DeleteModel(
+        #     name='Employee',
+        # ),
     ]

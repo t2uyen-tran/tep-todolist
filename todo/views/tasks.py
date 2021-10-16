@@ -64,7 +64,7 @@ def todo_mytask(request):  # Tracy
 
 
 @login_required
-def todo_myproject(request):  # Tracy
+def todo_myproject(request):
     project = Project.objects.all()
     context = {
         "project_list": project
