@@ -101,3 +101,12 @@ def todo_projectdelete(request, id):
     project = Project.objects.get(id=id)
     project.delete()
     return redirect("/todo/myproject/")
+
+
+@login_required
+def todo_myprojecttask(request, id):
+    todos = Todo.objects.filter(project=id)
+    context = {
+        "todo_list": todos
+    }
+    return render(request, "todo/todo_myprojectTask.html", context)

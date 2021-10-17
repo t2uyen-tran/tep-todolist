@@ -22,5 +22,6 @@ urlpatterns = [
          tasks.todo_projectupdate),
     path('myproject/<int:id>/delete/',
          tasks.todo_projectdelete),
+    path('myproject/<int:id>/',
+         tasks.todo_myprojecttask),
 ]
-
