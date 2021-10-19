@@ -1,4 +1,6 @@
 /* Bootstrap overrides */
-.btn .btn-primary {
-    background-color: #ea4335 !important;
+.btn-primary {
+  color: #fff;
+  background-color: red;
+  border-color: red;
 }

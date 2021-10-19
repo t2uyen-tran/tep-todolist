@@ -14,7 +14,12 @@
         <div id="{{ todo.id }}" class="notification_entry">
             <ul>
                 <li><a href="">{{ todo.taskName|truncatewords:10 }}</a></li>
-                <li>{{ todo.taskDueDate|date:"m/d/Y" }}</li>
+                <li>{{ todo.taskPriority}}</li>
+                <li>
+                    <span {% if todo.overdue_status %} class="overdue"{% endif %}>
+                        {{ todo.taskDueDate|date:"m/d/Y" }}
+                    </span>
+                </li>
             </ul>
         </div>
     {% endfor %}
