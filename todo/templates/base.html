@@ -48,17 +48,13 @@
           </ul>
 
           {% if user.is_authenticated %}
-              <!--UT: Add "notification" button to navbar-->
-              <div>
-                  <button type="button" class="btn btn-primary my-2 my-sm-0">
-                      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>!
-                  </button>
-              </div>
-
               <form class="form-inline mt-2 mt-md-0" action="" method="get" placeholder="Search" aria-label="Search">
                 <input type="text" name="q" value="" class="form-control mr-sm-2" id="q">
-                <input type="submit" value="Search Tasks" class="btn btn-outline-success my-2 my-sm-0">
+                <input type="submit" value="Search Tasks" class="btn btn-primary btn-outline-primary mr-2">
               </form>
+              <button type="button" class="btn btn-dark btn-outline-warning mr-2">
+                  Notifications <a href="{% url 'todo:notifications' %}"  class="badge badge-light">4</a>
+              </button>
           {% endif %}
 
         </div>

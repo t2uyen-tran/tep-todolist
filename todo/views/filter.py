@@ -10,8 +10,9 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import render
 
 # Notification function:
+# - Display overdie tasks
 # - Display tasks due in 14 days, show in date orther or priority order
-# - display newly involve project (in the last 7 days
+# - display newly involve project (in the last 7 days)
 from todo.models import Todo
 
 
@@ -20,10 +21,10 @@ def notifications(request) -> HttpResponse:
 
     today = datetime.datetime.now()
 
-    todos = Todo.objects.filter(employee_id=request.user.id)
+    todos = Todo.objects.filter(employee=request.user)
 
     context = {
         "today": today,
-        "todo": todos,
+        "todos": todos,
     }
     return render(request, "todo/notifications.html", context)
