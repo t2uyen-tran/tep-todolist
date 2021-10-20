@@ -1,0 +1,38 @@
+{% extends '../base.html' %}
+{% block title %}Search{% endblock %}
+{% block content %}
+{% load static %}
+{% load todo_extras %}
+<link rel="stylesheet" type="text/css" href="{% static 'todo/style.css' %}">
+<h1>Search Results</h1>
+{% if error_msg %}
+    <p class="para">{{ error_msg }}</p>
+{% else %}
+    {% if found_tasks %}
+            <h2>{{ found_tasks.count }} search results for "{{ query_string }}"</h2>
+            <div class="post_list">
+                {% for todo in found_tasks %}
+                <p>
+                <strong>
+                    <a href="/todo/{{ todo.id }}/">{{ todo.taskName }}</a>
+                </strong>
+                <br />
+                <span class="minor">
+                    Project:
+                    {{ todo.project }}
+                    <br /> Assigned to: {{ todo.employee }}
+                    <br /> Status: 
+                    {% if todo.taskComplete %}
+                    Done
+                    {% else %}
+                    Ongoing
+                    {% endif %}
+                </span>
+                </p>
+            {% endfor %}
+        </div>
+    {% else %}
+        <h3> No result found for "{{ query_string }}"</h3>
+    {% endif %}
+{% endif %}
+{% endblock %}
