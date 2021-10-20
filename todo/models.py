@@ -1,3 +1,7 @@
+import datetime
+
+from django.utils import timezone
+
 from django.conf import settings
 from django.db import models
 from django.db.models.base import Model
@@ -82,3 +86,8 @@ class Todo(models.Model):
 
     def __str__(self):
         return self.taskName
+
+    # TTUT: task overdue status > return true if the task is overdue
+    def is_overdue(self):
+        if self.taskDueDate and datetime.date.today() > self.taskDueDate:
+            return True

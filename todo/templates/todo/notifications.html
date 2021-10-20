@@ -1,24 +1,29 @@
 <!--UT: Notification page:
         - notify the tasks due in 14 days
-        - notify the new project assigned in the last 7 days-->
+        - notify if the task is overdue-->
 
 {% extends 'base.html' %}
+
+{% load todo_extras %}
 
 {% block title %}Notifications{% endblock %}
 
 {% block content %}
-  <h2>Notifications</h2>
     {% csrf_token %}
-    <h3>Tasks due in 14 days</h3>
+    <h3 class="alert alert-dark">For your attention</h3>
     {% for todo in todos %}
-        <div id="{{ todo.id }}" class="notification_entry">
-            <ul>
-                <li><a href="">{{ todo.taskName|truncatewords:10 }}</a></li>
-                <li>{{ todo.taskPriority}}</li>
+        <div id="{{ todo.id }}" class="alert alert-light" style="border-color:darkgrey; padding-left: 0">
+            <ul style="list-style-type: none">
+                <li><a href=""><b>{{ todo.taskName|truncatewords:10 }}</b></a></li>
+                <li>Project: <a href="">{{ todo.project.projectName }}</a></li>
                 <li>
-                    <span {% if todo.overdue_status %} class="overdue"{% endif %}>
-                        {{ todo.taskDueDate|date:"m/d/Y" }}
-                    </span>
+                    Priority: {{ todo|displayName:'taskPriority'}}
+                     - Due date: {{ todo.taskDueDate|date:"d/m/Y" }}
+                </li>
+                <li>
+                    {% if todo.is_overdue %}
+                     <span class="alert-danger" >Overdue !</span>
+                    {% endif %}
                 </li>
             </ul>
         </div>
