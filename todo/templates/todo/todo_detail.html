@@ -3,15 +3,47 @@
 {% block content %}
 {% load static %}
 {% load todo_extras %}
-    {% if request.user.is_authenticated %}
-        <h4>Hi, {{ request.user.username }}</h4>
-    {% else %}
-        <h4>Hi, please login</h4>
-    {% endif %}
-    <p>todoname: {{ todo.taskName }}</p>
-    <p>duedate: {{ todo.taskDueDate }}</p>
-    <p><a href="/{{todo.id}}/update/">update</a></p>
-    <p><a href="/{{todo.id}}/delete/">delete</a></p>
+<link rel="stylesheet" type="text/css" href="{% static 'todo/style.css' %}">
+<div class="card-deck">
+    <div class="card col-sm-8">
+      <div class="card-body">
+        <h3 class="card-title">{{ todo.taskName }}</h3>
+        <div class="card-text">{{ todo.taskDescription }}</div>
+      </div>
+    </div>
+
+<div class="card col-sm-4 p-0">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+            <a href="/todo/{{todo.id}}/update/" class = "btn btn-success">Edit</a>
+            {% if request.user.id == todo.taskCreate_id or request.user.id == project.projectCreate_id %}
+            <a href="/todo/{{todo.id}}/delete/" class = "btn btn-danger">Delete</a>
+            {% endif %}
+        </li>
+        <li class="list-group-item">
+            <strong>Assigned to:</strong>
+            {{ todo.employee }}
+          </li>
+          <li class="list-group-item">
+            <strong>Due date:</strong> {{ todo.taskDueDate }}
+          </li>
+          <li class="list-group-item">
+            <strong>Priority:</strong> {{ todo|displayName:'taskPriority' }}
+          </li>
+          <li class="list-group-item">
+            <strong>Project:</strong> {{ todo.project }}
+          </li>
+          <li class="list-group-item">
+            <strong>Status:</strong> 
+            {% if todo.taskComplete %}
+                    Done
+                    {% else %}
+                    Ongoing
+                    {% endif %}
+          </li>
+        </ul>
+    </div>
+</div>
 {% endblock %}
 
 

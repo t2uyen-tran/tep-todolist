@@ -38,13 +38,13 @@ class Department(models.Model):
 
 
 class Project(models.Model):
-    projectName = models.CharField(max_length=50, default='SOME STRING')
+    projectName = models.CharField(max_length=50, default='')
     creationDate = models.DateField()
     projectCreate = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=1, related_name='projectcreate')
-    endDate = models.DateField(default="2021-10-11")
+    endDate = models.DateField(default="")
     projectDescription = models.CharField(
-        max_length=500, default='SOME STRING')
+        max_length=500, default='')
     # department = models.ForeignKey(Department, on_delete = models.CASCADE, default= 1)
     employee = models.ManyToManyField(settings.AUTH_USER_MODEL)
 

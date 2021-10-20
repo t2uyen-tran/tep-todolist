@@ -22,6 +22,12 @@ urlpatterns = [
          tasks.todo_projectupdate),
     path('myproject/<int:id>/delete/',
          tasks.todo_projectdelete),
+     path('search/',
+         tasks.todo_search),
+     path('sortdate/',
+         tasks.todo_sortdate),
+     path('sortp/',
+         tasks.todo_sortp),
     path('myproject/<int:id>/',
          tasks.todo_myprojecttask),
 ]
