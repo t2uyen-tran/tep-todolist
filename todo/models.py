@@ -39,7 +39,7 @@ class Department(models.Model):
 
 class Project(models.Model):
     projectName = models.CharField(max_length=50, default='')
-    creationDate = models.DateField()
+    startDate = models.DateField()
     projectCreate = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=1, related_name='projectcreate')
     endDate = models.DateField(default="")
@@ -64,8 +64,8 @@ class Todo(models.Model):
 
     # def __str__(self):
     #     return self.name
-    taskName = models.CharField(max_length=50, default='SOME STRING')
-    taskDescription = models.CharField(max_length=500, default='SOME STRING')
+    taskName = models.CharField(max_length=50, default='')
+    taskDescription = models.CharField(max_length=500, default='')
     taskCreate = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=1, related_name='taskcreate')
     taskDueDate = models.DateField()

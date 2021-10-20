@@ -18,7 +18,22 @@
     <link href="{% static 'css/sticky-footer-navbar.css' %}" rel='stylesheet'>
     <link href="{% static 'css/styles.css' %}" rel='stylesheet'>
 
-
+    <style>
+      .errorlist {
+        color: red;
+        background-color: yellow;
+        font-size: 18px;
+        font-weight: bold;
+        display: inline-block;
+        list-style-type: none;
+        padding: 0;
+      }
+      textarea { vertical-align: middle; }​
+      li::marker {
+        content: none;
+      }
+     
+    </style>
 
     {# Additional CSS or html head data inserted by templates here. #}
     {% block extrahead %}{% endblock extrahead %}
@@ -73,7 +88,7 @@
         {% endfor %}
       {% endif %}
 
-      <p>{{ form.non_field_errors }}</p>
+      <!-- <p>{{ form.non_field_errors }}</p> -->
 
       {% block content %}{% endblock %}
     </main>
