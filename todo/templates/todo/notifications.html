@@ -1,6 +1,6 @@
-<!--UT: Notification page:
-        - notify the tasks due in 14 days
-        - notify if the task is overdue-->
+<!--TTUT: Notification page:
+        - notify the tasks due within 14 days
+        - notify if the task is overdue -->
 
 {% extends 'base.html' %}
 
@@ -10,8 +10,31 @@
 
 {% block content %}
     {% csrf_token %}
-    <h3 class="alert alert-dark">For your attention</h3>
+
+    <!-- List the overdue tasks -->
+    <h4 class="alert bg-danger btn-outline-danger text-white">Overdue tasks</h4>
     {% for todo in todos %}
+        {% if todo.is_overdue %}
+        <div id="{{ todo.id }}" class="alert alert-light" style="border-color:red; padding-left: 0">
+            <ul style="list-style-type: none">
+                <li>Task: <a href="" class="text-danger"><b>{{ todo.taskName|truncatewords:10 }}</b></a></li>
+                <li>Project: <a href="">{{ todo.project.projectName }}</a></li>
+                <li>
+                    Priority: {{ todo|displayName:'taskPriority'}}
+                     - Due date: {{ todo.taskDueDate|date:"d/m/Y" }}
+                </li>
+                <li>
+                    <span class="alert-danger">Overdue</span>
+                </li>
+            </ul>
+        </div>
+        {% endif %}
+    {% endfor %}
+
+    <!-- List the upcoming tasks -->
+    <h4 class="alert bg-secondary btn-outline-dark text-white">Upcoming tasks</h4>
+    {% for todo in todos %}
+        {% if not todo.is_overdue %}
         <div id="{{ todo.id }}" class="alert alert-light" style="border-color:darkgrey; padding-left: 0">
             <ul style="list-style-type: none">
                 <li><a href=""><b>{{ todo.taskName|truncatewords:10 }}</b></a></li>
@@ -20,12 +43,8 @@
                     Priority: {{ todo|displayName:'taskPriority'}}
                      - Due date: {{ todo.taskDueDate|date:"d/m/Y" }}
                 </li>
-                <li>
-                    {% if todo.is_overdue %}
-                     <span class="alert-danger" >Overdue !</span>
-                    {% endif %}
-                </li>
             </ul>
         </div>
+        {% endif %}
     {% endfor %}
 {% endblock %}
