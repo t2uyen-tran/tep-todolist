@@ -5,12 +5,12 @@
 {% load todo_extras %}
 <link rel="stylesheet" type="text/css" href="{% static 'todo/style.css' %}">
 <h1>My Projects</h1>
-<p class = "botton"><a href = "create/">Create</a></p>
+<p><a href = "create/" class = "btn btn-primary">Create</a></p>
     <table class="table" id="tasktable">
       <tr class="nodrop">
         <th>Project</th>
         <th>Create</th>
-        <th>Creation Date</th>
+        <th>start Date</th>
         <th>Due on</th>
         <th>Description</th>
         <th>Employee</th>
@@ -21,13 +21,13 @@
       <tr>
           <td><a href="/todo/myproject/{{ project.id }}/">{{ project.projectName }}</a></td>
           <td>{{ project.projectCreate }}</td>
-          <td>{{ project.creationDate }}</td>
+          <td>{{ project.startDate }}</td>
           <td>{{ project.endDate}}</td>
           <td>{{ project.projectDescription }}</td>
           <td>{{ project.worked_by }}</td>
           {% if request.user.id == project.projectCreate_id  %}
-          <td><a href="{{project.id}}/update/">Edit</a></td>
-          <td><a href="{{project.id}}/delete/">Delete</a></td>
+          <td><a href="{{project.id}}/update/" class = "btn btn-success">Edit</a></td>
+          <td><a href="{{project.id}}/delete/" class = "btn btn-danger">Delete</a></td>
           {% else %} 
           <td></td>
           <td></td>

@@ -4,6 +4,7 @@
 {% load static %}
 {% load todo_extras %}
 <link rel="stylesheet" type="text/css" href="{% static 'todo/style.css' %}">
+
     <h1>Create new task</h1>
     <Form method="POST">
         {% csrf_token %}
