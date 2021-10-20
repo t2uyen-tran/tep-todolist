@@ -50,6 +50,9 @@ class Project(models.Model):
     def __str__(self):
         return self.projectName
 
+    def worked_by(self):
+        return ", ".join([str(p) for p in self.employee.all()])
+
 
 class Todo(models.Model):
     # name = models.CharField(max_length=100)

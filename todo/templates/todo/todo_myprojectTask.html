@@ -1,0 +1,46 @@
+{% extends '../base.html' %}
+{% block title %}Mytasks{% endblock %}
+{% block content %}
+{% load static %}
+{% load todo_extras %}
+<link rel="stylesheet" type="text/css" href="{% static 'todo/style.css' %}">
+{% for todo in todo_list %}
+{% if forloop.first %}
+<h1>Tasks in {{todo.project}}</h1>
+{% endif %}
+{% endfor %}
+    <table class="table" id="tasktable">
+        <thead>
+            <tr class="nodrop">
+                <th>Task</th>
+                <th>Assigned to</th>
+                <th>Due on</th>
+                <th>Priority</th>
+                <th>Project</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th colspan="2">Modify</th>
+            </tr>
+        </thead>
+            {% for todo in todo_list %}
+            {% if todo.employee_id == request.user.id %}
+            <tr>
+                <td><a href="/todo/{{ todo.id }}/">{{ todo.taskName }}</a></td>
+                <td>{{ todo.employee }}</td>
+                <td>{{ todo.taskDueDate }}</td>
+                <td>{{ todo|displayName:'taskPriority' }}</td>
+                <td>{{ todo.project }}</td>
+                <td>{{ todo.taskDescription }}</td>
+                <td>{% if todo.taskComplete %}
+                    Done
+                    {% else %}
+                    Ongoing
+                    {% endif %}
+                </td>
+                <td><a href="/todo/{{todo.id}}/update/">Edit</a></td>
+                <td><a href="/todo/{{todo.id}}/delete/">Delete</a></td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+{% endblock %}

@@ -13,19 +13,28 @@
         <th>Creation Date</th>
         <th>Due on</th>
         <th>Description</th>
-        <th colspan="2">Modify</th>
+        <th>Employee</th>
       </tr>
-
       {% for project in project_list %}
+      {% for em in project.employee.all %}
+      {% if request.user.id == em.id  %}
       <tr>
-          <td><a href="/myproject/{{ project.id }}/">{{ project.projectName }}</a></td>
+          <td><a href="/todo/myproject/{{ project.id }}/">{{ project.projectName }}</a></td>
           <td>{{ project.projectCreate }}</td>
           <td>{{ project.creationDate }}</td>
           <td>{{ project.endDate}}</td>
           <td>{{ project.projectDescription }}</td>
+          <td>{{ project.worked_by }}</td>
+          {% if request.user.id == project.projectCreate_id  %}
           <td><a href="{{project.id}}/update/">Edit</a></td>
           <td><a href="{{project.id}}/delete/">Delete</a></td>
+          {% else %} 
+          <td></td>
+          <td></td>
+          {% endif %}
       </tr>
+      {% endif %}
+      {% endfor %}
       {% endfor %}
     </table>
 {% endblock %}

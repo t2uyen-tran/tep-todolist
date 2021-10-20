@@ -28,5 +28,6 @@ urlpatterns = [
          tasks.todo_sortdate),
      path('sortp/',
          tasks.todo_sortp),
+    path('myproject/<int:id>/',
+         tasks.todo_myprojecttask),
 ]
-
