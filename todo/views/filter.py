@@ -1,35 +1,27 @@
-##################################################################################################
-# TTUT: Views for some filtering functions                                                       #
-# Functions: notifications, sort, search                                                         #
-##################################################################################################
-import datetime
-from datetime import datetime, timedelta, timezone, time, date
-from django.utils import timezone
 
-from django.contrib.auth import login
-from django.http import HttpResponse
-from django.contrib.auth.decorators import login_required, user_passes_test
-from django.shortcuts import render
-
+""" TTUT: Views for some filtering functions
+# Functions: notifications, sort, search
 # Notification function:
-# - Display overdue tasks
-# - Display tasks due in 14 days, show in date other or priority order
-# - display newly involve project (in the last 7 days)
+#   - filter overdue tasks
+#   - filter tasks due in 14 days
+"""
+
+import datetime
+from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
 from todo.models import Todo
 
 
 @login_required
 def notifications(request) -> HttpResponse:
 
-    """deadline = datetime.date.today() + datetime.timedelta(days=14)
-    today = datetime.date.today()"""
+    # to get the date that is 14 days from today
+    deadline = datetime.date.today() + datetime.timedelta(days=14)
 
-    todos = Todo.objects.filter(employee=request.user)
-    """todos = Todo.objects.filter(taskDueDate__range=[today, deadline])"""
+    # Filter the incomplete tasks base on logged-in user and within 14 days
+    todos = Todo.objects.filter(employee=request.user).filter(taskDueDate__lte=deadline, taskComplete=False)
 
-    """if deadline >= Todo.taskDueDate:
-        return todos
-    """
     context = {
         "todos": todos,
     }
