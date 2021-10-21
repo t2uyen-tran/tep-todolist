@@ -10,7 +10,8 @@
 
 {% block content %}
     {% csrf_token %}
-
+    <body>
+    {% if user.is_authenticated %}
     <!-- List the overdue tasks -->
     <h4 class="alert bg-danger btn-outline-danger text-white">Overdue tasks</h4>
     {% for todo in todos %}
@@ -30,7 +31,7 @@
         </div>
         {% endif %}
     {% endfor %}
-
+    {% endif %}
     <!-- List the upcoming tasks -->
     <h4 class="alert bg-secondary btn-outline-dark text-white">Upcoming tasks</h4>
     {% for todo in todos %}
@@ -47,4 +48,5 @@
         </div>
         {% endif %}
     {% endfor %}
+    </body>
 {% endblock %}
