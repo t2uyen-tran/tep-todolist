@@ -122,7 +122,7 @@ def todo_myprojecttask(request, id):
 @login_required # Tracy
 def todo_search(request):
     todos = Todo.objects.all()
-    query_string = request.GET.get('q')
+    query_string = request.GET.get('search')
     error_msg = ''
     found_tasks = None
     key = None
