@@ -1,10 +1,10 @@
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from todo.forms import TodoForm, ProjectForm
-from todo.models import Todo, Project
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from django.contrib import messages
+from django.shortcuts import render, redirect
+from todo.forms.todo_forms import TodoForm, ProjectForm
+from todo.models import Todo, Project
+
 
 @login_required # Tracy
 def todo_list(request):
