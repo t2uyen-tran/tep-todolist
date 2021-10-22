@@ -11,7 +11,7 @@
         <th>Project</th>
         <th>Create</th>
         <th>start Date</th>
-        <th>Due on <a href="/todo/myproject/sortdate/" class="tableselect"> &#x2193</a></th>
+        <th>Due on<a href="/todo/myproject/sortdate/" class="tableselect"> &#x2193</a></th>
         <th>Description</th>
         <th>Employee</th>
       </tr>
@@ -22,7 +22,7 @@
           <td><a href="/todo/myproject/{{ project.id }}/">{{ project.projectName }}</a></td>
           <td>{{ project.projectCreate }}</td>
           <td>{{ project.startDate }}</td>
-          <td>{{ project.endDate}}</td>
+          <td>{{ project.endDate}} </td>
           <td>{{ project.projectDescription }}</td>
           <td>{{ project.worked_by }}</td>
           {% if request.user.id == project.projectCreate_id  %}
