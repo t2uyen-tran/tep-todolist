@@ -63,8 +63,8 @@
           </ul>
 
           {% if user.is_authenticated %}
-              <form class="form-inline mt-2 mt-md-0" action="" method="get" aria-label="search">
-                  <input type="search" name="search" value="" class="form-control mr-sm-2" id="q" placeholder="">
+              <form class="form-inline mt-2 mt-md-0" action="/todo/search/" method="get" aria-label="search">
+                  <input type="search" name="search" class="form-control mr-sm-2" id="q" placeholder="">
                   <input type="submit" value="Search" class="btn btn-dark btn-outline-light mr-2">
               </form>
               <button type="button" class="btn btn-dark btn-outline-light mr-2">
