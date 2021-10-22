@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.urls import path
-from .views import tasks, filter
+from .views import dashboard, tasks, filter
 
 
 app_name = "todo"
@@ -8,7 +8,7 @@ app_name = "todo"
 
 # The `urlpatterns` list routes URLs to views.
 urlpatterns = [
-    path('', tasks.todo_list, name='todo_lists'),
+    path('', dashboard.dashboard_list, name='todo_lists'),##Nicole reroute the todolist    
     path('create/', tasks.todo_create),
     path('<int:id>/', tasks.todo_detail),
     path('<int:id>/update/', tasks.todo_update),

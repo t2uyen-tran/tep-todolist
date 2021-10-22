@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.db.models import Q
 from django.contrib import messages
 
+
 @login_required # Tracy
 def todo_list(request):
     todos = Todo.objects.all()

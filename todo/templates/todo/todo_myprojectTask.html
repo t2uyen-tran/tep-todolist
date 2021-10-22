@@ -23,7 +23,7 @@
             </tr>
         </thead>
             {% for todo in todo_list %}
-            {% if todo.employee_id == request.user.id %}
+            
             <tr>
                 <td><a href="/todo/{{ todo.id }}/">{{ todo.taskName }}</a></td>
                 <td>{{ todo.employee }}</td>
@@ -40,7 +40,7 @@
                 <td><a href="/todo/{{todo.id}}/update/">Edit</a></td>
                 <td><a href="/todo/{{todo.id}}/delete/">Delete</a></td>
             </tr>
-            {% endif %}
+            
             {% endfor %}
         </tbody>
 {% endblock %}

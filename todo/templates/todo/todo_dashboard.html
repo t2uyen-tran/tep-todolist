@@ -1,0 +1,61 @@
+{% extends '../base.html' %}
+
+<!--{% block title %}Home{% endblock %}-->
+
+<!--by Nicole-->
+
+{% block content %}
+
+<h1>All Projects in P&NP</h1>
+<a href = "/todo/myproject/create/" class = "btn btn-primary" >Create a new project</a>
+<a href = "/todo/create/" class = "btn btn-primary">Create a new task</a>
+
+    {% if request.user.is_authenticated %}
+        <h4>Hi, {{ request.user.username }}</h4>
+    {% else %}
+        <h4>Hi, please login</h4>
+    {% endif %}
+
+   
+    <!-- {% regroup todoprojects by projectname as project_list %}
+    {% for projectname in project_list %}   
+        <h3>Project:{{ projectname.grouper }}</h3>     
+        <ul>
+            {% for todolist in projectname.list %}
+            <li>{{ todolist }}</li>
+            {% endfor %}
+
+        </ul>  
+    {% endfor %} -->
+
+    {% regroup todo_list by project as project_list %}
+   
+    
+        {% for project in project_list %}
+       <h3>Project: <a href = "myproject/{{ project.grouper.id }}" >{{ project.grouper }}</a></h3> <!--test是否可以！-->
+   
+
+        <ul>
+            {% for task in project.list %}
+            <li><a href = "{{ task.id }}">{{ task.taskName }}</a></li>
+            
+            {% endfor %}
+        </ul>             
+       
+    {% endfor %}
+
+    <!--分行显示每个project，但无法实现分组显示子任务的功能-->
+    <!-- {% for projectname in todoprojects %}
+    <div>
+        Project: {{ projectname }}  Start Date: {{ projectname.creationDate }} End Date: {{ projectname.endDate}}
+    </div>
+    {% endfor %} -->
+           
+
+       </tbody>  
+    </table>
+
+
+
+
+{% endblock %}
