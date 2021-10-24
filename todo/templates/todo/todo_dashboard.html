@@ -5,16 +5,21 @@
 <!--by Nicole-->
 
 {% block content %}
+{% load static %}
+{% load todo_extras %}
+<link rel="stylesheet" type="text/css" href="{% static 'todo/style.css' %}">
+
+{% if request.user.is_authenticated %}
+<h4>Hi, {{ request.user.username }}</h4>
+{% else %}
+<h4>Hi, please login</h4>
+{% endif %}
+
 
 <h1>All Projects in P&NP</h1>
-<a href = "/todo/myproject/create/" class = "btn btn-primary" >Create a new project</a>
+<a id = "bt" href = "/todo/myproject/create/" class = "btn btn-primary">Create a new project</a>
 <a href = "/todo/create/" class = "btn btn-primary">Create a new task</a>
 
-    {% if request.user.is_authenticated %}
-        <h4>Hi, {{ request.user.username }}</h4>
-    {% else %}
-        <h4>Hi, please login</h4>
-    {% endif %}
 
    
     <!-- {% regroup todoprojects by projectname as project_list %}
@@ -26,21 +31,36 @@
             {% endfor %}
 
         </ul>  
-    {% endfor %} -->
+    {% endfor %} -->    
+           
+        {% regroup todo_list by project as project_list %}     
+            {% for project in project_list %}
+            <h3>Project: <a href = "myproject/{{ project.grouper.id }}" >{{ project.grouper }}</a></h3> 
+                 
+            {% for task in project.list %}
+            <ul>
+                <li ><a href = "{{ task.id }}">{{ task.taskName }}</a>
+                {% if task.taskComplete %}    
+                <span class="alert-success badge badge-primary badge-pill">Done</span>   
+                   {% elif task.is_overdue %}
+                <span class="alert-danger badge badge-primary badge-pill">Overdue</span>       
+                      {% else %}
+                <span class="alert-warning badge badge-primary badge-pill">Ongoing</span> 
 
-    {% regroup todo_list by project as project_list %}
-   
-    
-        {% for project in project_list %}
-       <h3>Project: <a href = "myproject/{{ project.grouper.id }}" >{{ project.grouper }}</a></h3> <!--test是否可以！-->
-   
+                </li>                     
+                {% endif %}   
+                <!--##Nicole, class="alert..." refer to https://getbootstrap.com/docs/4.1/components/alerts/-->            
+            </ul>
+            {% endfor %}
+       
 
-        <ul>
+
+        <!-- <ul>
             {% for task in project.list %}
             <li><a href = "{{ task.id }}">{{ task.taskName }}</a></li>
             
             {% endfor %}
-        </ul>             
+        </ul>              -->
        
     {% endfor %}
 
