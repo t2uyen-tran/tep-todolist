@@ -17,42 +17,31 @@
 
 
 <h1>All Projects in P&NP</h1>
-<a id = "bt" href = "/todo/myproject/create/" class = "btn btn-primary">Create a new project</a>
-<a href = "/todo/create/" class = "btn btn-primary">Create a new task</a>
+<a href = "/todo/myproject/create/" class = "btn btn-primary" style="float: right;">Create a new project</a>
+<a href = "/todo/create/" class = "btn btn-primary" style="float: right;">Create a new task</a>
 
 
-   
-    <!-- {% regroup todoprojects by projectname as project_list %}
-    {% for projectname in project_list %}   
-        <h3>Project:{{ projectname.grouper }}</h3>     
-        <ul>
-            {% for todolist in projectname.list %}
-            <li>{{ todolist }}</li>
-            {% endfor %}
-
-        </ul>  
-    {% endfor %} -->    
            
-        {% regroup todo_list by project as project_list %}     
-            {% for project in project_list %}
-            <h3>Project: <a href = "myproject/{{ project.grouper.id }}" >{{ project.grouper }}</a></h3> 
-                 
-            {% for task in project.list %}
-            <ul>
-                <li ><a href = "{{ task.id }}">{{ task.taskName }}</a>
-                {% if task.taskComplete %}    
-                <span class="alert-success badge badge-primary badge-pill">Done</span>   
-                   {% elif task.is_overdue %}
-                <span class="alert-danger badge badge-primary badge-pill">Overdue</span>       
-                      {% else %}
-                <span class="alert-warning badge badge-primary badge-pill">Ongoing</span> 
+    {% regroup todo_list by project as project_list %}     
+        {% for project in project_list %}
+        <h3>Project: <a href = "myproject/{{ project.grouper.id }}" >{{ project.grouper }}</a></h3> 
+                
+        {% for task in project.list %}
+        <ul>
+            <li class="list-group-item d-flex justify-content-between align-items-center" ><a href = "{{ task.id }}">{{ task.taskName }}</a>
+            {% if task.taskComplete %}    
+            <span class="alert-success badge badge-primary badge-pill">Done</span>   
+                {% elif task.is_overdue %}
+            <span class="alert-danger badge badge-primary badge-pill">Overdue</span>       
+                    {% else %}
+            <span class="alert-warning badge badge-primary badge-pill">Ongoing</span> 
 
-                </li>                     
-                {% endif %}   
-                <!--##Nicole, class="alert..." refer to https://getbootstrap.com/docs/4.1/components/alerts/-->            
-            </ul>
-            {% endfor %}
-       
+            </li>                     
+            {% endif %}   
+            <!--##Nicole, class="alert..." refer to https://getbootstrap.com/docs/4.1/components/alerts/-->            
+        </ul>
+        {% endfor %}
+    
 
 
         <!-- <ul>

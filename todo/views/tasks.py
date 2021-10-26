@@ -114,8 +114,10 @@ def todo_projectdelete(request, id):
 @login_required
 def todo_myprojecttask(request, id):
     todos = Todo.objects.filter(project=id)
+    project = Project.objects.all() ##update:Nicole
     context = {
-        "todo_list": todos
+        "todo_list": todos,  
+        "project_list": project
     }
     return render(request, "todo/todo_myprojectTask.html", context)
 

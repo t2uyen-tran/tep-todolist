@@ -1,14 +1,36 @@
 {% extends '../base.html' %}
-{% block title %}Mytasks{% endblock %}
+{% block title %}My Project Detail{% endblock %}
 {% block content %}
 {% load static %}
 {% load todo_extras %}
 <link rel="stylesheet" type="text/css" href="{% static 'todo/style.css' %}">
+
+
+
+
+
 {% for todo in todo_list %}
 {% if forloop.first %}
 <h1>Tasks in {{todo.project}}</h1>
-{% endif %}
+
+<div class="card-deck">
+    <div class="card col-sm-8">
+      <div class="card-body">
+        <h3 class="card-title">{{ todo.project }}</h3>
+        {% endif %}
 {% endfor %}
+{% for project in project_list %}
+<!--unfinished yet-->
+{% if request.id == Project.id %} 
+  
+        <div class="card-text">{{ project.projectDescription }}</div>
+        {% endif %}      
+<!--unfinished yet-->
+ {% endfor %}     
+      </div>
+    </div>
+</div>
+
     <table class="table" id="tasktable">
         <thead>
             <tr class="nodrop">
