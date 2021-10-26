@@ -13,24 +13,49 @@
 {% if forloop.first %}
 <h1>Tasks in {{todo.project}}</h1>
 
-<div class="card-deck">
+<div class="card-deck" style="margin-bottom: 2em;">
     <div class="card col-sm-8">
       <div class="card-body">
         <h3 class="card-title">{{ todo.project }}</h3>
+        {% for project in project_list %}
+        {% if forloop.first %}
+        <div class="card-text">{{ project.projectDescription}}</div>
         {% endif %}
-{% endfor %}
-{% for project in project_list %}
-<!--unfinished yet-->
-{% if request.id == Project.id %} 
-  
-        <div class="card-text">{{ project.projectDescription }}</div>
-        {% endif %}      
-<!--unfinished yet-->
- {% endfor %}     
+        {% endfor %}
       </div>
     </div>
+{% endif %}
+{% endfor %}
+{% for project in project_list %}
+{% if forloop.first %}
+    <div class="card col-sm-4 p-0" >
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                {% if request.user.id == project.projectCreate_id  %}
+                <a href="{{project.id}}/update/" class = "btn btn-success">Edit</a>
+                <a href="{{project.id}}/delete/" class = "btn btn-danger">Delete</a>
+                {% else %} 
+                <p style="color: red;font-weight: bold; text-align: center;" >You are not avaliable to delete and edit.</p>
+                {% endif %}
+            </li>
+            <li class="list-group-item">
+                <strong>Create:</strong>
+                {{ project.projectCreate }}
+            </li>
+            <li class="list-group-item">
+                <strong>StartDate:</strong> {{ project.startDate }}
+            </li>
+            <li class="list-group-item">
+                <strong>EndDate:</strong> {{ project.endDate }}
+            </li>
+            <li class="list-group-item">
+                <strong>Employees:</strong> {{ project.worked_by }}
+            </li>
+        </ul>
+    </div>
+{% endif %}
+{% endfor %}
 </div>
-
     <table class="table" id="tasktable">
         <thead>
             <tr class="nodrop">
@@ -59,10 +84,11 @@
                     Ongoing
                     {% endif %}
                 </td>
-                <td><a href="/todo/{{todo.id}}/update/">Edit</a></td>
-                <td><a href="/todo/{{todo.id}}/delete/">Delete</a></td>
+                <td><a href="/todo/{{todo.id}}/update/" class = "btn btn-success">Edit</a></td>
+                <td><a href="/todo/{{todo.id}}/delete/" class = "btn btn-danger">Delete</a></td>
             </tr>
             
             {% endfor %}
         </tbody>
+
 {% endblock %}

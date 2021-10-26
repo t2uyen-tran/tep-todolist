@@ -17,14 +17,14 @@
 
 
 <h1>All Projects in P&NP</h1>
-<a href = "/todo/myproject/create/" class = "btn btn-primary" style="float: right;">Create a new project</a>
+<a href = "/todo/myproject/create/" class = "btn btn-primary" style="float: right; margin-left: 1em ;">Create a new project</a>
 <a href = "/todo/create/" class = "btn btn-primary" style="float: right;">Create a new task</a>
 
 
            
     {% regroup todo_list by project as project_list %}     
         {% for project in project_list %}
-        <h3>Project: <a href = "myproject/{{ project.grouper.id }}" >{{ project.grouper }}</a></h3> 
+        <h3 style=" margin-bottom: 1em ;">Project: <a href = "myproject/{{ project.grouper.id }}" >{{ project.grouper }}</a></h3> 
                 
         {% for task in project.list %}
         <ul>

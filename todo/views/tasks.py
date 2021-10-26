@@ -6,8 +6,7 @@ from todo.forms.todo_forms import TodoForm, TodoForm_update, ProjectForm
 from todo.models import Todo, Project
 
 
-
-@login_required # Tracy
+@login_required  # Tracy
 def todo_list(request):
     todos = Todo.objects.all()
     context = {
@@ -117,9 +116,9 @@ def todo_projectdelete(request, id):
 @login_required
 def todo_myprojecttask(request, id):
     todos = Todo.objects.filter(project=id)
-    project = Project.objects.all() ##update:Nicole
+    project = Project.objects.filter(id=id)  # update:Nicole
     context = {
-        "todo_list": todos,  
+        "todo_list": todos,
         "project_list": project
     }
     return render(request, "todo/todo_myprojectTask.html", context)

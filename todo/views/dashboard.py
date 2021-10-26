@@ -7,10 +7,12 @@ from todo.models import Todo, Project
 def index(request):
     return render(request, "todo/../templates/home.html")
 
-##Nicole
+# Nicole
+
+
 def dashboard_list(request):
-    projects = Project.objects.all()    
-    todos = Todo.objects.all()
+    projects = Project.objects.all()
+    todos = Todo.objects.all().order_by('project')
     # todos_count = todos.count()
     context = {
         "todoprojects": projects,
