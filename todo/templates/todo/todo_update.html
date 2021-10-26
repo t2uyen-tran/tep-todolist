@@ -3,10 +3,12 @@
 {% block content %}
 {% load todo_extras %}
 <h1>Update task</h1>
+<div class="form-control">
     <Form method="POST">
         {% csrf_token %}
         {{form.as_p}}
         <button type="submit">update</button>
     </Form>
+</div>
 {% endblock %}
 

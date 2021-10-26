@@ -12,9 +12,28 @@ class TodoForm(forms.ModelForm):
         fields = ('taskName', 'taskDescription', 'taskCreate',
                   'taskDueDate', 'taskPriority', 'taskComplete', 'project', 'employee')
         widgets = {
-            'taskDescription': Textarea(attrs={'cols': 40, 'rows': 10, 'placeholder': 'Write some descriptions about the task'}),
-            'taskName': forms.TextInput(attrs={'size': '40', 'placeholder': 'eg. Create mysql database'}),
-            'taskDueDate': forms.DateInput(attrs={'type': 'date'}),
+            'taskDescription': forms.Textarea(attrs={'cols': 40, 'rows': 10, 'placeholder': 'Write some descriptions about the task', 'class': 'form-control'}),
+            'taskName': forms.TextInput(attrs={'size': '40', 'placeholder': 'eg. Create mysql database', 'class': 'form-control'}),
+            'taskDueDate': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+        }
+
+    def clean(self):
+        cleaned_data = super().clean()
+        end_date = cleaned_data.get("taskDueDate")
+        if end_date <= timezone.now().date():
+            raise forms.ValidationError(
+                "TaskDueDate cannot be in the past")
+
+
+class TodoForm_update(forms.ModelForm):
+    class Meta:
+        model = Todo
+        fields = ('taskName', 'taskDescription', 
+                  'taskDueDate', 'taskPriority', 'taskComplete', 'project', 'employee')
+        widgets = {
+            'taskDescription': forms.Textarea(attrs={'cols': 40, 'rows': 10, 'placeholder': 'Write some descriptions about the task', 'class': 'form-control'}),
+            'taskName': forms.TextInput(attrs={'size': '40', 'placeholder': 'eg. Create mysql database', 'class': 'form-control'}),
+            'taskDueDate': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
         }
 
     def clean(self):
