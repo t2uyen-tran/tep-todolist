@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import render, redirect
-from todo.forms.todo_forms import TodoForm, ProjectForm
+from todo.forms.todo_forms import TodoForm, TodoForm_update, ProjectForm
 from todo.models import Todo, Project
 
 
@@ -40,7 +40,7 @@ def todo_detail(request, id):
 
 def todo_update(request, id):  # Tracy
     todo = Todo.objects.get(id=id)
-    form = TodoForm(request.POST or None, instance=todo)
+    form = TodoForm_update(request.POST or None, instance=todo)
     if form.is_valid():
         form.save()
         return redirect("/")
