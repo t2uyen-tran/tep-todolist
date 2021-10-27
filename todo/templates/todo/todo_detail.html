@@ -8,7 +8,7 @@
     <div class="card col-sm-8">
       <div class="card-body">
         <h3 class="card-title">{{ todo.taskName }}</h3>
-        <div class="card-text">{{ todo.taskDescription }}</div>
+        <div class="card-text"><strong>Description:</strong> {{ todo.taskDescription }}</div>
       </div>
     </div>
 
@@ -21,8 +21,8 @@
             {% endif %}
         </li>
         <li class="list-group-item">
-            <strong>Assigned to:</strong>
-            {{ todo.employee }}
+            <strong>Created by:</strong>
+            {{ todo.taskCreate }}
           </li>
           <li class="list-group-item">
             <strong>Due date:</strong> {{ todo.taskDueDate }}

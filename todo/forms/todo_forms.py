@@ -28,7 +28,7 @@ class TodoForm(forms.ModelForm):
 class TodoForm_update(forms.ModelForm):
     class Meta:
         model = Todo
-        fields = ('taskName', 'taskDescription', 
+        fields = ('taskName', 'taskDescription',
                   'taskDueDate', 'taskPriority', 'taskComplete', 'project', 'employee')
         widgets = {
             'taskDescription': forms.Textarea(attrs={'cols': 40, 'rows': 10, 'placeholder': 'Write some descriptions about the task', 'class': 'form-control'}),
@@ -50,10 +50,10 @@ class ProjectForm(forms.ModelForm):
         fields = ('projectName', 'projectCreate', 'projectDescription',
                   'startDate', 'endDate', 'employee')
         widgets = {
-            'projectDescription': Textarea(attrs={'cols': 40, 'rows': 10, 'placeholder': 'Write some descriptions about the project'}),
-            'projectName': forms.TextInput(attrs={'size': '40', 'placeholder': 'eg. todolist project'}),
-            'startDate': forms.DateInput(attrs={'type': 'date'}),
-            'endDate': forms.DateInput(attrs={'type': 'date'}),
+            'projectDescription': Textarea(attrs={'cols': 40, 'rows': 10, 'class': 'form-control', 'placeholder': 'Write some descriptions about the project'}),
+            'projectName': forms.TextInput(attrs={'size': '40', 'placeholder': 'eg. todolist project', 'class': 'form-control'}),
+            'startDate': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'endDate': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'employee': forms.CheckboxSelectMultiple(),
         }
 
