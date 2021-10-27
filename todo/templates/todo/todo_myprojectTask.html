@@ -9,37 +9,37 @@
 
 
 
-{% for todo in todo_list %}
-{% if forloop.first %}
-<h1>Tasks in {{todo.project}}</h1>
 
 <div class="card-deck" style="margin-bottom: 2em;">
     <div class="card col-sm-8">
       <div class="card-body">
+        {% for todo in todo_list %}
+        {% if forloop.first %}
         <h3 class="card-title">{{ todo.project }}</h3>
+        {% endif %}
+        {% endfor %}
         {% for project in project_list %}
         {% if forloop.first %}
-        <div class="card-text">{{ project.projectDescription}}</div>
+        <div class="card-text"><strong>Description: </strong>{{ project.projectDescription}}</div>
         {% endif %}
         {% endfor %}
       </div>
     </div>
-{% endif %}
-{% endfor %}
+
 {% for project in project_list %}
 {% if forloop.first %}
     <div class="card col-sm-4 p-0" >
         <ul class="list-group list-group-flush">
             <li class="list-group-item">
                 {% if request.user.id == project.projectCreate_id  %}
-                <a href="{{project.id}}/update/" class = "btn btn-success">Edit</a>
-                <a href="{{project.id}}/delete/" class = "btn btn-danger">Delete</a>
+                <a href="update/" class = "btn btn-success">Edit</a>
+                <a href="delete/" class = "btn btn-danger">Delete</a>
                 {% else %} 
-                <p style="color: red;font-weight: bold; text-align: center;" >You are not avaliable to delete and edit.</p>
+                <p style="color: red;font-weight: bold; text-align: center;" >Only project manager can delete and edit.</p>
                 {% endif %}
             </li>
             <li class="list-group-item">
-                <strong>Create:</strong>
+                <strong>Project Manager:</strong>
                 {{ project.projectCreate }}
             </li>
             <li class="list-group-item">
@@ -55,7 +55,13 @@
     </div>
 {% endif %}
 {% endfor %}
+
 </div>
+{% for todo in todo_list %}
+{% if forloop.first %}
+<h3>Tasks in {{todo.project}}</h3>
+{% endif %}
+{% endfor %}
     <table class="table" id="tasktable">
         <thead>
             <tr class="nodrop">
@@ -66,7 +72,6 @@
                 <th>Project</th>
                 <th>Description</th>
                 <th>Status</th>
-                <th colspan="2">Modify</th>
             </tr>
         </thead>
             {% for todo in todo_list %}
@@ -84,8 +89,6 @@
                     Ongoing
                     {% endif %}
                 </td>
-                <td><a href="/todo/{{todo.id}}/update/" class = "btn btn-success">Edit</a></td>
-                <td><a href="/todo/{{todo.id}}/delete/" class = "btn btn-danger">Delete</a></td>
             </tr>
             
             {% endfor %}
