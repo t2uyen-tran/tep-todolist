@@ -19,7 +19,7 @@
                 <br />
                 <span class="minor">
                     Project:
-                    <a href="/todo/myproject/{{ todo.project_id }}/">{{ todo.project }}</a>
+                    <a href="/todo/myproject/{{ todo.project.id }}/">{{ todo.project }}</a>
                     <br /> Created by: {{ todo.taskCreate }}
                     <br /> Status: 
                     {% if todo.taskComplete %}
