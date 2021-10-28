@@ -10,7 +10,7 @@
         <thead>
             <tr class="nodrop">
                 <th>Task</th>
-                <th>Assigned to</th>
+                <th>Created by</th>
                 <th>Due on <a href="/todo/sortdate/" class="tableselect"> &#x2193</a></th>
                 <th>Priority <a href="/todo/sortp/" class="tableselect"> &#x2193</a></th>
                 <th>Project</th>
@@ -24,12 +24,14 @@
             {% if todo.employee_id == request.user.id %}
             <tr>
                 <td><a href="/todo/{{ todo.id }}/">{{ todo.taskName }}</a></td>
-                <td>{{ todo.employee }}</td>
+                <td>{{ todo.taskCreate }}</td>
                 <td>{{ todo.taskDueDate }}</td>
                 <td>{{ todo|displayName:'taskPriority' }}</td>
                 <td>{{ todo.project }}</td>
                 <td>{% if todo.taskComplete %}
                     Done
+                    {% elif todo.is_overdue %}
+                        Overdue
                     {% else %}
                     Ongoing
                     {% endif %}

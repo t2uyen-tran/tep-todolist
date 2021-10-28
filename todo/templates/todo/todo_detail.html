@@ -38,6 +38,8 @@
                     <strong>Status:</strong>
                     {% if todo.taskComplete %}
                         Done
+                    {% elif todo.is_overdue %}
+                        Overdue
                     {% else %}
                         Ongoing
                     {% endif %}
