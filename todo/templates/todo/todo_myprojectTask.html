@@ -79,13 +79,13 @@
                 <td>{{ todo|displayName:'taskPriority' }}</td>
                 <td>{{ todo.project }}</td>
                 <td>{{ todo.taskDescription }}</td>
-                <td>{% if todo.taskComplete %}
-                    Done
-                    {% elif todo.is_overdue %}
-                    Overdue
-                    {% else %}
-                    Ongoing
-                {% endif %}
+                <td> {% if todo.taskComplete %}    
+                    <span class="alert-success badge badge-primary badge-pill">Done</span>   
+                        {% elif todo.is_overdue %}
+                    <span class="alert-danger badge badge-primary badge-pill">Overdue</span>       
+                            {% else %}
+                    <span class="alert-warning badge badge-primary badge-pill">Ongoing</span> 
+                    {% endif %}
                 </td>
             </tr>
 
