@@ -1,49 +1,52 @@
 {% extends '../base.html' %}
 {% block title %}Task detail{% endblock %}
 {% block content %}
-{% load static %}
-{% load todo_extras %}
-<link rel="stylesheet" type="text/css" href="{% static 'todo/style.css' %}">
-<div class="card-deck">
-    <div class="card col-sm-8">
-      <div class="card-body">
-        <h3 class="card-title">{{ todo.taskName }}</h3>
-        <div class="card-text"><strong>Description:</strong> {{ todo.taskDescription }}</div>
-      </div>
-    </div>
+    {% load static %}
+    {% load todo_extras %}
+    <link rel="stylesheet" type="text/css" href="{% static 'todo/style.css' %}">
+    <h2>Task details</h2>
+    <div class="card-deck">
+        <div class="card col-sm-8">
+            <div class="card-body">
+                <h3 class="card-title">{{ todo.taskName }}</h3>
+                <div class="card-text"><strong>Task description:</strong> {{ todo.taskDescription }}</div>
+            </div>
+        </div>
 
-<div class="card col-sm-4 p-0">
-    <ul class="list-group list-group-flush">
-        <li class="list-group-item">
-            <a href="/todo/{{todo.id}}/update/" class = "btn btn-success">Edit</a>
-            {% if request.user.id == todo.taskCreate_id or request.user.id == project.projectCreate_id %}
-            <a href="/todo/{{todo.id}}/delete/" class = "btn btn-danger">Delete</a>
-            {% endif %}
-        </li>
-        <li class="list-group-item">
-            <strong>Created by:</strong>
-            {{ todo.taskCreate }}
-          </li>
-          <li class="list-group-item">
-            <strong>Due date:</strong> {{ todo.taskDueDate }}
-          </li>
-          <li class="list-group-item">
-            <strong>Priority:</strong> {{ todo|displayName:'taskPriority' }}
-          </li>
-          <li class="list-group-item">
-            <strong>Project:</strong> {{ todo.project }}
-          </li>
-          <li class="list-group-item">
-            <strong>Status:</strong> 
-            {% if todo.taskComplete %}
-                    Done
-                    {% else %}
-                    Ongoing
+        <div class="card col-sm-4 p-0">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <a href="/todo/{{ todo.id }}/update/" class="btn btn-success">Edit</a>
+                    {% if request.user.id == todo.taskCreate_id or request.user.id == project.projectCreate_id %}
+                        <a href="/todo/{{ todo.id }}/delete/" class="btn btn-danger">Delete</a>
                     {% endif %}
-          </li>
-        </ul>
+                </li>
+                <li class="list-group-item">
+                    <strong>Created by:</strong>
+                    {{ todo.taskCreate }}
+                </li>
+                <li class="list-group-item">
+                    <strong>Due date:</strong> {{ todo.taskDueDate }}
+                </li>
+                <li class="list-group-item">
+                    <strong>Priority:</strong> {{ todo|displayName:'taskPriority' }}
+                </li>
+                <li class="list-group-item">
+                    <strong>Project:</strong> {{ todo.project }}
+                </li>
+                <li class="list-group-item">
+                    <strong>Status:</strong>
+                    {% if todo.taskComplete %}
+                        Done
+                    {% elif todo.is_overdue %}
+                        Overdue
+                    {% else %}
+                        Ongoing
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
     </div>
-</div>
 {% endblock %}
 
 

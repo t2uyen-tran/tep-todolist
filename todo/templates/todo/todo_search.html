@@ -20,10 +20,12 @@
                 <span class="minor">
                     Project:
                     {{ todo.project }}
-                    <br /> Assigned to: {{ todo.employee }}
+                    <br /> Created by: {{ todo.taskCreate }}
                     <br /> Status: 
                     {% if todo.taskComplete %}
                     Done
+                    {% elif todo.is_overdue %}
+                        Overdue
                     {% else %}
                     Ongoing
                     {% endif %}
