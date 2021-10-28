@@ -23,11 +23,11 @@
                     <br /> Created by: {{ todo.taskCreate }}
                     <br /> Status: 
                     {% if todo.taskComplete %}
-                    <span class="alert-success">Done</span>
+                    <span class="alert-success badge badge-primary badge-pill">Done</span>
                     {% elif todo.is_overdue %}
-                    <span class="alert-danger">Overdue</span>
+                    <span class="alert-danger badge badge-primary badge-pill">Overdue</span>
                     {% else %}
-                    <span class="alert-warning">Ongoing</span>
+                    <span class="alert-warning badge badge-primary badge-pill">Ongoing</span>
                     {% endif %}
                 </span>
                 </p>
