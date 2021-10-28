@@ -134,8 +134,10 @@ def todo_search(request):
     if query_string:
         found_tasks = Todo.objects.filter(
             Q(taskName__icontains=query_string) | Q(
-                taskDescription__icontains=query_string)
+                taskDescription__icontains=query_string) | Q(project__projectName__icontains=query_string) | Q(
+                project__projectDescription__icontains=query_string)
         )
+        
     else:
         error_msg = 'Please enter keywords'
 
