@@ -85,6 +85,8 @@
                 <td>{{ todo.taskDescription }}</td>
                 <td>{% if todo.taskComplete %}
                     Done
+                    {% elif todo.is_overdue %}
+                    Overdue
                     {% else %}
                     Ongoing
                     {% endif %}
