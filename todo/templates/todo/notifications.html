@@ -18,8 +18,8 @@
         {% if todo.is_overdue %}
         <div id="{{ todo.id }}" class="alert alert-light" style="border-color:red; padding-left: 0">
             <ul style="list-style-type: none">
-                <li>Task: <a href="" class="text-danger"><b>{{ todo.taskName|truncatewords:10 }}</b></a></li>
-                <li>Project: <a href="">{{ todo.project.projectName }}</a></li>
+                <li><a href="/todo/{{ todo.id }}/" class="text-danger"><b>{{ todo.taskName|truncatewords:10 }}</b></a></li>
+                <li>Project: <a href="/todo/myproject/{{ todo.project.id }}/">{{ todo.project.projectName }}</a></li>
                 <li>
                     Priority: {{ todo|displayName:'taskPriority'}}
                      - Due date: {{ todo.taskDueDate|date:"d/m/Y" }}
@@ -38,8 +38,8 @@
         {% if not todo.is_overdue %}
         <div id="{{ todo.id }}" class="alert alert-light" style="border-color:darkgrey; padding-left: 0">
             <ul style="list-style-type: none">
-                <li><a href=""><b>{{ todo.taskName|truncatewords:10 }}</b></a></li>
-                <li>Project: <a href="">{{ todo.project.projectName }}</a></li>
+                <li><a href="/todo/{{ todo.id }}/" class="text-secondary"><b>{{ todo.taskName }}</b></a></li>
+                <li>Project: <a href="/todo/myproject/{{ todo.project.id }}/">{{ todo.project.projectName }}</a></li>
                 <li>
                     Priority: {{ todo|displayName:'taskPriority'}}
                      - Due date: {{ todo.taskDueDate|date:"d/m/Y" }}

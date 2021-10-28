@@ -9,11 +9,11 @@
     <table class="table" id="tasktable">
       <tr class="nodrop">
         <th>Project</th>
-        <th>Create</th>
-        <th>start Date</th>
-        <th>Due on <a href="/todo/myproject/sortdate/" class="tableselect"> &#x2193</a></th>
-        <th>Description</th>
-        <th>Employee</th>
+        <th>Project Manager</th>
+        <th>Start Date</th>
+        <th>End Date <a href="/todo/myproject/sortdate/" class="tableselect"> &#x2193</a></th>
+        <th>Project Description</th>
+        <th>Project Member</th>
       </tr>
       {% for project in project_list %}
       {% for em in project.employee.all %}
