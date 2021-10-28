@@ -24,7 +24,7 @@
             {% if todo.employee_id == request.user.id %}
             <tr>
                 <td><a href="/todo/{{ todo.id }}/">{{ todo.taskName }}</a></td>
-                <td>{{ todo.taskCreate }}</td>
+                <td style="text-transform: capitalize;">{{ todo.taskCreate }}</td>
                 <td>{{ todo.taskDueDate }}</td>
                 <td>{{ todo|displayName:'taskPriority' }}</td>
                 <td><a href="/todo/myproject/{{ todo.project.id }}/">{{ todo.project }}</a></td>
