@@ -51,7 +51,7 @@ class ProjectForm(forms.ModelForm):
                   'startDate', 'endDate', 'employee')
         widgets = {
             'projectDescription': Textarea(attrs={'cols': 40, 'rows': 10, 'class': 'form-control', 'placeholder': 'Write some descriptions about the project'}),
-            'projectName': forms.TextInput(attrs={'size': '40', 'placeholder': 'eg. todolist project', 'class': 'form-control'}),
+            'projectName': forms.TextInput(attrs={'size': '40', 'placeholder': 'eg. todolist project', 'class': 'form-control', }),
             'startDate': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
             'endDate': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'employee': forms.CheckboxSelectMultiple(),

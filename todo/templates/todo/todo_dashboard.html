@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css" href="{% static 'todo/style.css' %}">
 
 {% if request.user.is_authenticated %}
-<h4>Hi, {{ request.user.username }}</h4>
+<h4 style="text-transform:capitalize;">Hi, {{ request.user.username }}</h4>
 {% else %}
 <h4>Hi, please login</h4>
 {% endif %}

@@ -17,10 +17,10 @@
                     <a href="/todo/{{ todo.id }}/">{{ todo.taskName }}</a>
                 </strong>
                 <br />
-                <span class="minor">
+                <span class="minor" style="text-transform: capitalize;">
                     Project:
                     {{ todo.project }}
-                    <br /> Created by: {{ todo.taskCreate }}
+                    <br />Created by: {{ todo.taskCreate }}
                     <br /> Status: 
                     {% if todo.taskComplete %}
                     Done
