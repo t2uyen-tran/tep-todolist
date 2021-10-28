@@ -27,7 +27,7 @@
                 <td>{{ todo.taskCreate }}</td>
                 <td>{{ todo.taskDueDate }}</td>
                 <td>{{ todo|displayName:'taskPriority' }}</td>
-                <td>{{ todo.project }}</td>
+                <td><a href="/todo/myproject/{{ todo.project.id }}/">{{ todo.project }}</a></td>
                 <td>{% if todo.taskComplete %}
                     Done
                     {% elif todo.is_overdue %}

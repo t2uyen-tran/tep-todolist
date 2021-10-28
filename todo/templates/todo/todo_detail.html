@@ -32,7 +32,7 @@
                     <strong>Priority:</strong> {{ todo|displayName:'taskPriority' }}
                 </li>
                 <li class="list-group-item">
-                    <strong>Project:</strong> {{ todo.project }}
+                    <strong>Project:</strong> <a href="/todo/myproject/{{ todo.project.id }}/">{{ todo.project }}</a>
                 </li>
                 <li class="list-group-item">
                     <strong>Status:</strong>
