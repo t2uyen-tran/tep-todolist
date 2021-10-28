@@ -37,11 +37,11 @@
                 <li class="list-group-item">
                     <strong>Status:</strong>
                     {% if todo.taskComplete %}
-                        Done
+                    <span class="alert-success">Done</span>
                     {% elif todo.is_overdue %}
-                        Overdue
+                    <span class="alert-danger">Overdue</span>
                     {% else %}
-                        Ongoing
+                    <span class="alert-warning">Ongoing</span>
                     {% endif %}
                 </li>
             </ul>

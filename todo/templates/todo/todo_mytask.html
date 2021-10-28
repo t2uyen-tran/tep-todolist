@@ -29,11 +29,11 @@
                 <td>{{ todo|displayName:'taskPriority' }}</td>
                 <td><a href="/todo/myproject/{{ todo.project.id }}/">{{ todo.project }}</a></td>
                 <td>{% if todo.taskComplete %}
-                        Done
+                    <span class="alert-success">Done</span>
                     {% elif todo.is_overdue %}
-                        Overdue
+                    <span class="alert-danger">Overdue</span>
                     {% else %}
-                        Ongoing
+                    <span class="alert-warning">Ongoing</span>
                     {% endif %}
                 </td>
                 <td><a href="/todo/{{todo.id}}/update/" class = "btn btn-success">Edit</a></td>
