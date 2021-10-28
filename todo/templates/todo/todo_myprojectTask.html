@@ -1,81 +1,77 @@
 {% extends '../base.html' %}
 {% block title %}My Project Detail{% endblock %}
 {% block content %}
-{% load static %}
-{% load todo_extras %}
-<link rel="stylesheet" type="text/css" href="{% static 'todo/style.css' %}">
+    {% load static %}
+    {% load todo_extras %}
+    <link rel="stylesheet" type="text/css" href="{% static 'todo/style.css' %}">
+    <h2>Project details</h2>
+    <div class="card-deck" style="margin-bottom: 2em;">
+        <div class="card col-sm-8">
+            <div class="card-body">
+                {% for todo in todo_list %}
+                    {% if forloop.first %}
+                        <h3 class="card-title">{{ todo.project }}</h3>
+                    {% endif %}
+                {% endfor %}
+                {% for project in project_list %}
+                    {% if forloop.first %}
+                        <div class="card-text"><strong>Project description: </strong>{{ project.projectDescription }}</div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
 
-
-
-
-
-
-<div class="card-deck" style="margin-bottom: 2em;">
-    <div class="card col-sm-8">
-      <div class="card-body">
-        {% for todo in todo_list %}
-        {% if forloop.first %}
-        <h3 class="card-title">{{ todo.project }}</h3>
-        {% endif %}
-        {% endfor %}
         {% for project in project_list %}
-        {% if forloop.first %}
-        <div class="card-text"><strong>Description: </strong>{{ project.projectDescription}}</div>
-        {% endif %}
+            {% if forloop.first %}
+                <div class="card col-sm-4 p-0">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            {% if request.user.id == project.projectCreate_id %}
+                                <a href="update/" class="btn btn-success">Edit</a>
+                                <a href="delete/" class="btn btn-danger">Delete</a>
+                            {% else %}
+                                <p style="color: red;font-weight: bold; text-align: center;">Only project manager can
+                                    delete and edit.</p>
+                            {% endif %}
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Project Manager:</strong>
+                            {{ project.projectCreate }}
+                        </li>
+                        <li class="list-group-item">
+                            <strong>StartDate:</strong> {{ project.startDate }}
+                        </li>
+                        <li class="list-group-item">
+                            <strong>EndDate:</strong> {{ project.endDate }}
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Employees:</strong> {{ project.worked_by }}
+                        </li>
+                    </ul>
+                </div>
+            {% endif %}
         {% endfor %}
-      </div>
-    </div>
 
-{% for project in project_list %}
-{% if forloop.first %}
-    <div class="card col-sm-4 p-0" >
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">
-                {% if request.user.id == project.projectCreate_id  %}
-                <a href="update/" class = "btn btn-success">Edit</a>
-                <a href="delete/" class = "btn btn-danger">Delete</a>
-                {% else %} 
-                <p style="color: red;font-weight: bold; text-align: center;" >Only project manager can delete and edit.</p>
-                {% endif %}
-            </li>
-            <li class="list-group-item">
-                <strong>Project Manager:</strong>
-                {{ project.projectCreate }}
-            </li>
-            <li class="list-group-item">
-                <strong>StartDate:</strong> {{ project.startDate }}
-            </li>
-            <li class="list-group-item">
-                <strong>EndDate:</strong> {{ project.endDate }}
-            </li>
-            <li class="list-group-item">
-                <strong>Employees:</strong> {{ project.worked_by }}
-            </li>
-        </ul>
     </div>
-{% endif %}
-{% endfor %}
-
-</div>
-{% for todo in todo_list %}
-{% if forloop.first %}
-<h3>Tasks in {{todo.project}}</h3>
-{% endif %}
-{% endfor %}
+    {% for todo in todo_list %}
+        {% if forloop.first %}
+            <h3>Tasks in {{ todo.project }}</h3>
+        {% endif %}
+    {% endfor %}
     <table class="table" id="tasktable">
         <thead>
-            <tr class="nodrop">
-                <th>Task</th>
-                <th>Assigned to</th>
-                <th>Due on</th>
-                <th>Priority</th>
-                <th>Project</th>
-                <th>Description</th>
-                <th>Status</th>
-            </tr>
+        <tr class="nodrop">
+            <th>Task</th>
+            <th>Assigned to</th>
+            <th>Due on</th>
+            <th>Priority</th>
+            <th>Project</th>
+            <th>Description</th>
+            <th>Status</th>
+        </tr>
         </thead>
-            {% for todo in todo_list %}
-            
+        {% for todo in todo_list %}
+
             <tr>
                 <td><a href="/todo/{{ todo.id }}/">{{ todo.taskName }}</a></td>
                 <td>{{ todo.employee }}</td>
@@ -85,13 +81,13 @@
                 <td>{{ todo.taskDescription }}</td>
                 <td>{% if todo.taskComplete %}
                     Done
-                    {% else %}
+                {% else %}
                     Ongoing
-                    {% endif %}
+                {% endif %}
                 </td>
             </tr>
-            
-            {% endfor %}
+
+        {% endfor %}
         </tbody>
 
 {% endblock %}
