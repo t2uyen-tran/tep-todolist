@@ -22,3 +22,6 @@ description: [This is the css file for TEP project]
 
 .para {color: #e65f21; margin-left: 4px; font-size: 1.2em; font-weight: bold;}
 
+.cap{
+	text-transform: capitalize;
+}

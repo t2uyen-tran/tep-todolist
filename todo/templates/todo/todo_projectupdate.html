@@ -6,8 +6,8 @@
 
 
  <h1>Update the project</h1>
-    <div class="form-control">
-    <Form method="POST">
+    <div class="form-control" style="text-transform: capitalize;">
+    <Form method="POST" style="text-transform: capitalize;">
         {% csrf_token %}
         {{form.as_p}}
         <button type="submit"  class = "btn btn-primary"> update</button>

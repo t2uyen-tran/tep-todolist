@@ -3,7 +3,7 @@
 {% block content %}
 {% load todo_extras %}
     <h1>Create new project</h1>
-<div class="form-control">
+<div class="form-control" style="text-transform: capitalize;">
     <Form method="POST">
         {% csrf_token %}
         {{form.as_p}}

@@ -17,10 +17,15 @@
                     <a href="/todo/{{ todo.id }}/">{{ todo.taskName }}</a>
                 </strong>
                 <br />
-                <span class="minor">
+                <span class="minor" style="text-transform: capitalize;">
                     Project:
+<<<<<<< HEAD
                     <a href="/todo/myproject/{{ todo.project.id }}/">{{ todo.project }}</a>
                     <br /> Created by: {{ todo.taskCreate }}
+=======
+                    {{ todo.project }}
+                    <br />Created by: {{ todo.taskCreate }}
+>>>>>>> capitialize
                     <br /> Status: 
                     {% if todo.taskComplete %}
                     Done

@@ -34,7 +34,7 @@
                                     delete and edit.</p>
                             {% endif %}
                         </li>
-                        <li class="list-group-item">
+                        <li class="list-group-item" style="text-transform: capitalize;">
                             <strong>Project Manager:</strong>
                             {{ project.projectCreate }}
                         </li>
@@ -74,7 +74,7 @@
 
             <tr>
                 <td><a href="/todo/{{ todo.id }}/">{{ todo.taskName }}</a></td>
-                <td>{{ todo.employee }}</td>
+                <td style="text-transform: capitalize;">{{ todo.employee }}</td>
                 <td>{{ todo.taskDueDate }}</td>
                 <td>{{ todo|displayName:'taskPriority' }}</td>
                 <td>{{ todo.project }}</td>
