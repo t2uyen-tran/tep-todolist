@@ -5,16 +5,22 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-  <h3>Home</h3>
-    <p>Write something about the TEP project here .. </p>
-
-    <p>
-        {% if user.is_authenticated %}
-            You are already logged in.
-        {% else %}
-            <a href="{% url 'login' %}" class="btn btn-primary">Log In</a>
-        {% endif %}
-    </p>
-
+  <h3>Organise tasks with ToDoList Web Application</h3>
+    <p><em>Regain clarity and calmness by getting all tasks out of your head and onto your ToDoList!</em></p>
+    <br>
+    <fieldset class="form-control">
+        <p> ToDoList is an web application that manages tasks efficiently with simple intuitive user interface.
+            The application is build based on the requirement from P&NP for managing the company project's tasks.</p>
+        <p><em>Notice that the content on this site is only for demo purpose.</em></p>
+    <hr>
+        <p>
+            {% if user.is_authenticated %}
+                You are already logged in as <a href="" >{{ user.username }}</a>
+            {% else %}
+                <p>Login is required for accessing the application.</p>
+                <a href="{% url 'login' %}" class="btn btn-primary">Log In</a>
+            {% endif %}
+        </p>
+    </fieldset>
 
 {% endblock %}
