@@ -45,7 +45,7 @@
             {% else %}
             <tr>
                 <td><a href="/todo/{{ todo.id }}/">{{ todo.taskName }}</a></td>
-                <td>{{ todo.taskCreate }}</td>
+                <td style="text-transform: capitalize;">{{ todo.taskCreate }}</td>
                 <td>{{ todo.taskDueDate }}</td>
                 <td>{{ todo|displayName:'taskPriority' }}</td>
                 <td>{{ todo.project }}</td>
