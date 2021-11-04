@@ -6,9 +6,10 @@
 #####################################################################################################
 
 from django.contrib import admin
-from .models import Todo, Department, Project
+from .models import Todo, Department, Project, Profile
 
 # register all application models here
 admin.site.register(Todo)
 admin.site.register(Department)
 admin.site.register(Project)
+admin.site.register(Profile)
