@@ -1,14 +1,13 @@
 import datetime
 
-from django.utils import timezone
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.templatetags.static import static
+from django.utils.translation import gettext as _
 
-from django.conf import settings
 from django.db import models
 from django.db.models.base import Model
-from django.db.models.deletion import CASCADE
-from django.db.models.fields import BooleanField
 from django.contrib.auth.models import User
-from django.db.models.fields.related import ForeignKey
 from django.conf import settings
 
 
@@ -91,3 +90,41 @@ class Todo(models.Model):
     def is_overdue(self):
         if self.taskDueDate and datetime.date.today() > self.taskDueDate:
             return True
+
+
+# Uyen
+class Profile(models.Model):
+    GENDER_MALE = 1
+    GENDER_FEMALE = 2
+    GENDER_OTHER = 3
+    GENDER_CHOICES = [
+        (GENDER_MALE, _("Male")),
+        (GENDER_FEMALE, _("Female")),
+        (GENDER_OTHER, _("Other")),
+    ]
+    user = models.OneToOneField(User, related_name="profile", on_delete=models.CASCADE)
+    avatar = models.ImageField(upload_to="profiles/avatars/", null=True, blank=True)
+    birthday = models.DateField(null=True, blank=True)
+    gender = models.PositiveSmallIntegerField(choices=GENDER_CHOICES, null=True, blank=True)
+    phone = models.CharField(max_length=32, null=True, blank=True)
+    address = models.CharField(max_length=255, null=True, blank=True)
+    city = models.CharField(max_length=50, null=True, blank=True)
+    postcode = models.CharField(max_length=30, null=True, blank=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = _('Profile')
+        verbose_name_plural = _('Profiles')
+
+    @property
+    def get_avatar(self):
+        return self.avatar.url if self.avatar else static('img/default-profile-picture.png')
+
+
+@receiver(post_save, sender=User, dispatch_uid='save_new_user_profile')
+def save_profile(sender, instance, created, **kwargs):
+    if created:
+        profile = Profile(user=instance)
+        profile.save()

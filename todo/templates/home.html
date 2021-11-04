@@ -18,7 +18,7 @@
                 You are already logged in as <a href="" >{{ user.username }}</a>
             {% else %}
                 <p>Login is required for accessing the application.</p>
-                <a href="{% url 'login' %}" class="btn btn-primary">Log In</a>
+                <a href="{% url 'account_login' %}" class="btn btn-primary">Log In</a>
             {% endif %}
         </p>
     </fieldset>

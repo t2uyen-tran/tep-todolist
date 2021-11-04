@@ -29,6 +29,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -36,6 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'todo.apps.TodoConfig',  # UT: ToDoConfig object was created in /todo/apps.py
+    # Uyen
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.github',
 ]
 
 MIDDLEWARE = [
@@ -48,14 +54,31 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 ROOT_URLCONF = 'tepproject.urls'
-LOGIN_URL = "/login"
 LOGIN_REDIRECT_URL = "todo:todo_lists"
 LOGOUT_REDIRECT_URL = "home"
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_SECURITY_WARN_AFTER = 5
 SESSION_SECURITY_EXPIRE_AFTER = 12
+
+SITE_ID = 1
+
+# Uyen
+# Provider specific settings
+SOCIALACCOUNT_PROVIDERS = {
+    'github': {
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+        'APP': {
+            'client_id': 'ab42390aa0be954c3548',
+            'secret': 'ab129ac7a37d91432c7842175555e0aa9f8d1e46',
+            'key': ''
+        }
+    }
+}
 
 TEMPLATES = [
     {
@@ -72,6 +95,15 @@ TEMPLATES = [
             ],
         },
     },
+]
+
+# Uyen
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 WSGI_APPLICATION = 'tepproject.wsgi.application'
@@ -126,6 +158,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
