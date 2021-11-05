@@ -7,7 +7,8 @@
     <Form method="POST">
         {% csrf_token %}
         {{form.as_p}}
-        <button type="submit" class = "btn btn-primary">update</button>
+        <p><button type="submit" class = "btn btn-primary">update</button>
+            <a href="/todo/mytask/" class = "btn btn-danger">cancel</a></p>
     </Form>
 </div>
 {% endblock %}
