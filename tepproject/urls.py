@@ -30,7 +30,6 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('profile/', ProfileView.as_view(), name='profile'),
     path('logout', auth_views.LogoutView.as_view(), name='logout'),
-    path('change-password', auth_views.PasswordChangeView.as_view(), name='change-password'),
     path('todo/', include('todo.urls', namespace='todo'))
 ]
 
