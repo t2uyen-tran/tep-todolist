@@ -36,8 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'todo.apps.TodoConfig',  # UT: ToDoConfig object was created in /todo/apps.py
-    # Uyen
+    'todo.apps.TodoConfig',  # Uyen: ToDoConfig object was created in /todo/apps.py
+    # Uyen: 
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
