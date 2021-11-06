@@ -1,10 +1,10 @@
-<!--Uyen: Login page -->
-{% extends '../base.html' %}
+<!-- Uyen: Login page -->
+{% extends 'base.html' %}
 
 {% load i18n %}
 {% load account socialaccount %}
 
-{% block head_title %}{% trans "Sign In" %}{% endblock %}
+{% block head_title %}{% trans "Log In" %}{% endblock %}
 
 {% block content %}
 
@@ -24,6 +24,7 @@
 
         {% if socialaccount_providers %}
             <div>
+                <!-- to generate Github login URL -->
                 <p>Or, please <a href="{% provider_login_url 'github' %}">Authenticate with GitHub
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                          class="bi bi-github" viewBox="0 0 16 16">

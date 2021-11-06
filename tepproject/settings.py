@@ -27,7 +27,6 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.admin',
@@ -36,12 +35,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'todo.apps.TodoConfig',  # Uyen: ToDoConfig object was created in /todo/apps.py
-    # Uyen: 
+    'todo.apps.TodoConfig',  #ToDoConfig object was created in /todo/apps.py
+    # required apps for allauth
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.github',
+    'allauth.socialaccount.providers.github', # include the provide Github
 ]
 
 MIDDLEWARE = [
@@ -65,13 +64,11 @@ SESSION_SECURITY_EXPIRE_AFTER = 12
 
 SITE_ID = 1
 
-# Uyen
+
 # Provider specific settings
 SOCIALACCOUNT_PROVIDERS = {
     'github': {
-        # For each OAuth based provider, either add a ``SocialApp``
-        # (``socialaccount`` app) containing the required client
-        # credentials, or list them here:
+        # list the the required client credentials for Github
         'APP': {
             'client_id': 'ab42390aa0be954c3548',
             'secret': 'ab129ac7a37d91432c7842175555e0aa9f8d1e46',
@@ -80,6 +77,7 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
+# Specify the context processors
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -91,18 +89,18 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'todo.context_processors.add_variable_to_context',
+                'todo.context_processors.add_variable_to_context',  # Override for notification badge
             ],
         },
     },
 ]
 
-# Uyen
+# Define authentication backends
 AUTHENTICATION_BACKENDS = [
-    # Needed to login by username in Django admin, regardless of `allauth`
+    # Needed to login by username, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
 
-    # `allauth` specific authentication methods, such as login by e-mail
+    # `allauth` specific authentication methods
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
