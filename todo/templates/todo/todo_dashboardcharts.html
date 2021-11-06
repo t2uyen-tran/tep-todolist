@@ -1,0 +1,148 @@
+{% extends '../base.html' %}
+
+
+
+{% block content %}
+{% load static %}
+{% load todo_extras %}
+<link rel="stylesheet" type="text/css" href="{% static 'todo/style.css' %}">
+
+{% if request.user.is_authenticated %}
+<h4 style="text-transform:capitalize;">Hi, {{ request.user.username }}</h4>
+{% else %}
+<h4>Hi, please login</h4>
+{% endif %}
+
+<a href = "/todo/myproject/create/" class = "btn btn-primary" style="float: right; margin-left: 1em ;">Create a new project</a>
+<a href = "/todo/create/" class = "btn btn-primary" style="float: right;">Create a new task</a>
+<h4>For all project details, click <a href="/todo/dashboard/" > here </a></h4>
+<br>
+
+<div class="card-group">
+    <div class="card">      
+      <div class="card-body">
+        <h5 class="card-title">No. of ongoing projects</h5>
+        <p class="text-danger">{{ project_count }}</p>
+        
+      </div>
+    </div>
+    <div class="card">
+      
+      <div class="card-body">
+        <h5 class="card-title">No. of Todo Tasks</h5>
+        <p class="text-danger">{{ alltodos_count }}</p>
+        
+      </div>
+    </div>
+    <div class="card">
+      
+      <div class="card-body">
+        <h5 class="card-title">No. of Todo Tasks Overdue</h5>
+        <p class="text-danger">{{ todos_overdue }}</p>
+        
+      </div>
+    </div>
+    <div class="card">
+      
+        <div class="card-body">
+          <h5 class="card-title">No. of Todo Tasks due in 14 days</h5>
+          <p class="text-danger">{{ todos_due }}</p>
+          
+        </div>
+      </div>
+  </div>
+
+
+
+
+
+
+<!--import chartjs.CDN to make charts-->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js"></script>
+<div class="row mt-5">
+<div class = "col-md-4">
+<canvas id="myChart" width="400" height="300"></canvas>
+<script>
+const ctx = document.getElementById('myChart').getContext('2d');
+const myChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: [{% for eachproject in todoprojects %}"{{eachproject.projectName}}",{% endfor %}],
+        datasets: [{
+            label: 'Number of Todo Tasks in Each Project',
+            data: [{% for count in task_count %}{{ count.dcount }},{% endfor %}],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        
+        title: {
+            display: true,
+            text: 'test'
+        }
+        
+    }
+});
+</script>
+</div>
+<div class = "col-md-6">
+    <canvas id="myChart2" width="400" height="300"></canvas>
+    <script>
+        const ctx2 = document.getElementById('myChart2').getContext('2d');
+        const myChart2 = new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: [
+                {% regroup employee_list by employee as newemployee_list %}     
+                   {% for employee in newemployee_list %}"{{employee.grouper}}",{% endfor %}
+                ],
+                datasets: [{
+                    label: 'Workload of Employees',
+                    data: [{% for workload in workload_count %}{{ workload.workload }},{% endfor %}],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        </script>
+    </div>
+</div>
+{% endblock %}

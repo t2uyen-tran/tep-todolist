@@ -8,7 +8,9 @@ app_name = "todo"
 
 # The `urlpatterns` list routes URLs to views.
 urlpatterns = [
-    path('', dashboard.dashboard_list, name='todo_lists'),##Nicole reroute the todolist    
+    path('', dashboard.dashboard_charts, name='todo_lists'),
+    path('dashboard/', dashboard.dashboard_list),
+    ##path('', dashboard.dashboard_list, name='todo_lists'),##Nicole reroute the todolist    
     path('create/', tasks.todo_create),
     path('<int:id>/', tasks.todo_detail),
     path('<int:id>/update/', tasks.todo_update),

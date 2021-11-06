@@ -23,9 +23,11 @@
 
            
     {% regroup todo_list by project as project_list %}     
-        {% for project in project_list %}
+    
+        {% for project in project_list %}       
         <h3 style=" margin-bottom: 1em ;">Project: <a href = "myproject/{{ project.grouper.id }}" >{{ project.grouper }}</a></h3> 
-                
+               
+                  
         {% for task in project.list %}
         <ul>
             <li class="list-group-item d-flex justify-content-between align-items-center" ><a href = "{{ task.id }}">{{ task.taskName }}</a>
@@ -40,25 +42,12 @@
             {% endif %}   
             <!--##Nicole, class="alert..." refer to https://getbootstrap.com/docs/4.1/components/alerts/-->            
         </ul>
+          
         {% endfor %}
     
+        {% endfor %}
 
 
-        <!-- <ul>
-            {% for task in project.list %}
-            <li><a href = "{{ task.id }}">{{ task.taskName }}</a></li>
-            
-            {% endfor %}
-        </ul>              -->
-       
-    {% endfor %}
-
-    <!--分行显示每个project，但无法实现分组显示子任务的功能-->
-    <!-- {% for projectname in todoprojects %}
-    <div>
-        Project: {{ projectname }}  Start Date: {{ projectname.creationDate }} End Date: {{ projectname.endDate}}
-    </div>
-    {% endfor %} -->
            
 
        </tbody>  
