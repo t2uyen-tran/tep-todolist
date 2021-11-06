@@ -1,10 +1,12 @@
-{% extends '../base.html' %}
-{% block title %}Home{% endblock %}
+<!-- Profile page - including Change Password link-->
+{% extends 'base.html' %}
+{% block title %}Profile{% endblock %}
 {% block content %}
     {% load static %}
     {% load todo_extras %}
     <link rel="stylesheet" type="text/css" href="{% static 'todo/style.css' %}">
 
+    <h2>Manage Profile</h2>
     <form action="{% url 'profile' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="row">
@@ -27,13 +29,14 @@
                                        placeholder="Also your last name" value="{{ profile.user.last_name }}"
                                        required>
                             </div>
+                            <!-- and other fields -->
                         </div>
                     </div>
                     <div class="row align-items-center">
                         <div class="col-md-6 mb-3">
                             <label for="birthday">Birthday</label>
                             <div class="input-group">
-                                <span class="input-group-text"><span class="far fa-calendar-alt"></span></span>
+                                <span class="input-group-text"></span>
                                 <input name="birthday" data-datepicker="" class="form-control" id="birthday"
                                        type="text" placeholder="dd/mm/yyyy"
                                        value="{{ profile.birthday|date:'m/d/Y'|default:'' }}" required>
@@ -115,7 +118,7 @@
                             <h2 class="h5 mb-4">Select profile photo</h2>
                             <div class="d-xl-flex align-items-center">
                                 <div class="file-field">
-                                    <div class="d-flex justify-content-xl-center ml-xl-3">
+                                    <div class="d-flex justify-content-xl-center ml-xl-0">
                                         <div class="d-flex">
                                             <input name="avatar" type="file" class="hidden"/>
                                             <br><br>
