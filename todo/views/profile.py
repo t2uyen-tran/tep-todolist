@@ -1,4 +1,4 @@
-## Uyen
+""" Uyen: View for Profile page"""
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -9,11 +9,12 @@ from django.views import View
 from todo.forms.profile_forms import ProfileForm, form_validation_error
 from todo.models import Profile
 
-
+# apply method_decorator to dispatch() in class ProfileView for login protection
 @method_decorator(login_required(login_url='accounts/login'), name='dispatch')
 class ProfileView(View):
     profile = None
 
+    # if user does not have a profile, it will be created
     def dispatch(self, request, *args, **kwargs):
         self.profile, __ = Profile.objects.get_or_create(user=request.user)
         return super(ProfileView, self).dispatch(request, *args, **kwargs)

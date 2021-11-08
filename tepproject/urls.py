@@ -25,13 +25,13 @@ from todo.views.profile import ProfileView
 
 urlpatterns = [
     path('', TemplateView.as_view(template_name="home.html"), name="home"),
-    path('admin/', admin.site.urls),
-    # path('login', auth_views.LoginView.as_view(), name='login'),
-    path('accounts/', include('allauth.urls')),
-    path('profile/', ProfileView.as_view(), name='profile'),
-    path('logout', auth_views.LogoutView.as_view(), name='logout'),
+    path('admin/', admin.site.urls),    # Django admin route
+    path('accounts/', include('allauth.urls')),     # URLs provided by "allauth"
+    path('profile/', ProfileView.as_view(), name='profile'),        # Profile route
+    path('logout', auth_views.LogoutView.as_view(), name='logout'), # logout route by django.contrib.auth
     path('todo/', include('todo.urls', namespace='todo'))
 ]
 
+# to support and show media & static files
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

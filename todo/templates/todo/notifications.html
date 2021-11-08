@@ -12,40 +12,55 @@
     {% csrf_token %}
     <body>
     {% if user.is_authenticated %}
-    <!-- List the overdue tasks -->
-    <h4 class="alert bg-danger btn-outline-danger text-white">Overdue tasks</h4>
-    {% for todo in todos %}
-        {% if todo.is_overdue %}
-        <div id="{{ todo.id }}" class="alert alert-light" style="border-color:red; padding-left: 0">
-            <ul style="list-style-type: none">
-                <li><a href="/todo/{{ todo.id }}/" class="text-danger"><b>{{ todo.taskName|truncatewords:10 }}</b></a></li>
-                <li>Project: <a href="/todo/myproject/{{ todo.project.id }}/">{{ todo.project.projectName }}</a></li>
-                <li>
-                    Priority: {{ todo|displayName:'taskPriority'}}
-                     - Due date: {{ todo.taskDueDate|date:"d/m/Y" }}
-                </li>
-                <li>
-                    <span class="alert-danger badge badge-primary badge-pill">Overdue</span>
-                </li>
-            </ul>
-        </div>
-        {% endif %}
-    {% endfor %}
+        <!-- List the overdue tasks -->
+        <h4 class="alert bg-danger btn-outline-danger text-white">Overdue tasks</h4>
+        {% for todo in todos %}
+            {% if todo.is_overdue %}
+                <div id="{{ todo.id }}" class="alert alert-light" style="border-color:red; padding-left: 0">
+                    <ul style="list-style-type: none">
+                        <li>
+                            <a href="/todo/{{ todo.id }}/" class="text-danger">
+                                <b>{{ todo.taskName|truncatewords:10 }}</b>
+                            </a>
+                        </li>
+                        <li>
+                            Project:
+                            <a href="/todo/myproject/{{ todo.project.id }}/">
+                            {{ todo.project.projectName }}
+                            </a>
+                        </li>
+                        <li>
+                            Priority: {{ todo|displayName:'taskPriority' }}
+                            - Due date: {{ todo.taskDueDate|date:"d/m/Y" }}
+                        </li>
+                        <li>
+                            <span class="alert-danger badge badge-primary badge-pill">Overdue</span>
+                        </li>
+                    </ul>
+                </div>
+            {% endif %}
+        {% endfor %}
     {% endif %}
     <!-- List the upcoming tasks -->
     <h4 class="alert bg-secondary btn-outline-dark text-white">Upcoming tasks</h4>
     {% for todo in todos %}
         {% if not todo.is_overdue %}
-        <div id="{{ todo.id }}" class="alert alert-light" style="border-color:darkgrey; padding-left: 0">
-            <ul style="list-style-type: none">
-                <li><a href="/todo/{{ todo.id }}/" class="text-secondary"><b>{{ todo.taskName }}</b></a></li>
-                <li>Project: <a href="/todo/myproject/{{ todo.project.id }}/">{{ todo.project.projectName }}</a></li>
-                <li>
-                    Priority: {{ todo|displayName:'taskPriority'}}
-                     - Due date: {{ todo.taskDueDate|date:"d/m/Y" }}
-                </li>
-            </ul>
-        </div>
+            <div id="{{ todo.id }}" class="alert alert-light" style="border-color:darkgrey; padding-left: 0">
+                <ul style="list-style-type: none">
+                    <li>
+                        <a href="/todo/{{ todo.id }}/" class="text-secondary">
+                            <b>{{ todo.taskName }}</b></a>
+                    </li>
+                    <li>
+                        Project: <a href="/todo/myproject/{{ todo.project.id }}/">
+                        {{ todo.project.projectName }}</a>
+                    </li>
+                    <li>
+                        Priority: {{ todo|displayName:'taskPriority' }}
+                        - Due date: {{ todo.taskDueDate|date:"d/m/Y" }}
+                    </li>
+                </ul>
+            </div>
         {% endif %}
     {% endfor %}
     </body>
