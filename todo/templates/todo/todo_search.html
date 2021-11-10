@@ -9,9 +9,9 @@
     <p class="para">{{ error_msg }}</p>
 {% else %}
     {% if found_tasks %}
-            <h2>{{ found_tasks.count }} search results for "{{ query_string }}"</h2>
-            <div class="post_list">
-                {% for todo in found_tasks %}
+        <h2>{{ found_tasks.count }} search results for "{{ query_string }}"</h2>
+        <div class="post_list">
+            {% for todo in found_tasks %}
                 <p>
                 <strong>
                     <a href="/todo/{{ todo.id }}/">{{ todo.taskName }}</a>

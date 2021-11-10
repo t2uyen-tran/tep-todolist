@@ -20,8 +20,6 @@
         </thead>
         <tbody>
             {% for todo in todo_list %}
-            {% if not request.user.is_superuser %}
-            {% if todo.employee_id == request.user.id %}
             <tr>
                 <td><a href="/todo/{{ todo.id }}/">{{ todo.taskName }}</a></td>
                 <td style="text-transform: capitalize;">{{ todo.taskCreate }}</td>
@@ -41,26 +39,6 @@
                 <td><a href="/todo/{{todo.id}}/delete/" class = "btn btn-danger">Delete</a></td>
                 {% endif %}
             </tr>
-            {% endif %}
-            {% else %}
-            <tr>
-                <td><a href="/todo/{{ todo.id }}/">{{ todo.taskName }}</a></td>
-                <td style="text-transform: capitalize;">{{ todo.taskCreate }}</td>
-                <td>{{ todo.taskDueDate }}</td>
-                <td>{{ todo|displayName:'taskPriority' }}</td>
-                <td>{{ todo.project }}</td>
-                <td>{% if todo.taskComplete %}
-                    Done
-                    {% else %}
-                    Ongoing
-                    {% endif %}
-                </td>
-                <td><a href="/todo/{{todo.id}}/update/" class = "btn btn-success">Edit</a></td>
-                {% if request.user.id == todo.taskCreate_id or request.user.id == project.projectCreate_id %}
-                <td><a href="/todo/{{todo.id}}/delete/" class = "btn btn-danger">Delete</a></td>
-                {% endif %}
-            </tr>
-            {% endif %}
             {% empty %}
             <p class="para">You don't have any task now.</p>
             {% endfor %}

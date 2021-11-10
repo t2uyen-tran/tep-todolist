@@ -4,15 +4,29 @@ from django.db.models import Q
 from django.shortcuts import render, redirect
 from todo.forms.todo_forms import TodoForm, TodoForm_update, ProjectForm
 from todo.models import Todo, Project
+from django.contrib import messages
 
-
-@login_required  # Tracy
-def todo_list(request):
+@login_required
+def todo_mytask(request):  # Tracy
     todos = Todo.objects.all()
+    if not request.user.is_superuser:
+        for todo in todos:
+            if todo.employee_id != request.user.id:
+                key = todo.id
+                todos = todos.exclude(id=key)
     context = {
         "todo_list": todos
     }
-    return render(request, "todo/todo_list.html", context)
+    return render(request, "todo/todo_mytask.html", context)
+
+
+@login_required  # Tracy
+def todo_detail(request, id):
+    todo = Todo.objects.get(id=id)
+    context = {
+        "todo": todo
+    }
+    return render(request, "todo/todo_detail.html", context)
 
 
 @login_required  # Tracy
@@ -28,15 +42,7 @@ def todo_create(request):
     return render(request, "todo/todo_create.html", context)
 
 
-@login_required  # Tracy
-def todo_detail(request, id):
-    todo = Todo.objects.get(id=id)
-    context = {
-        "todo": todo
-    }
-    return render(request, "todo/todo_detail.html", context)
-
-
+@login_required
 def todo_update(request, id):  # Tracy
     todo = Todo.objects.get(id=id)
     form = TodoForm_update(request.POST or None, instance=todo)
@@ -52,25 +58,66 @@ def todo_update(request, id):  # Tracy
 @login_required
 def todo_delete(request, id):
     todo = Todo.objects.get(id=id)
-    key = todo.project_id
-    project = Project.objects.get(id=key)
-    if (request.user.id == todo.taskCreate_id) or (request.user.id == project.projectCreate_id):
-        todo.delete()
-        messages.success(
-            request, "Task '{}' has been deleted".format(todo.taskName))
-    else:
-        messages.warning(
-            request, "You do not allow to delete the task '{}'.".format(todo.taskName))
+    todo.delete()
+    messages.success(request, "Task '{}' has been deleted".format(todo.taskName))
+    
     return redirect("/todo/mytask")
 
 
 @login_required
-def todo_mytask(request):  # Tracy
-    todos = Todo.objects.all()
+def todo_sortp(request):  # Tracy
+    todos = Todo.objects.order_by('taskPriority')
+    if not request.user.is_superuser:
+        for todo in todos:
+            if todo.employee_id != request.user.id:
+                key = todo.id
+                todos = todos.exclude(id=key)
     context = {
         "todo_list": todos
     }
-    return render(request, "todo/todo_mytask.html", context)
+    return render(request, "todo/todo_sortp.html", context)
+
+@login_required
+def todo_sortdate(request):  # Tracy
+    todos = Todo.objects.order_by('taskDueDate')
+    if not request.user.is_superuser:
+        for todo in todos:
+            if todo.employee_id != request.user.id:
+                key = todo.id
+                todos = todos.exclude(id=key)
+    context = {
+        "todo_list": todos
+    }
+    return render(request, "todo/todo_sortdate.html", context)
+
+
+
+@login_required  # Tracy
+def todo_search(request):
+    todos = Todo.objects.all()
+    query_string = request.GET.get('search')
+    error_msg = ''
+    found_tasks = None
+    key = None
+    if query_string:
+        found_tasks = Todo.objects.filter(
+            Q(taskName__icontains=query_string) | Q(
+                taskDescription__icontains=query_string) | Q(project__projectName__icontains=query_string) | Q(
+                project__projectDescription__icontains=query_string)
+        )
+        if not request.user.is_superuser:
+            for todo in todos:
+                if todo.employee_id != request.user.id:
+                    key = todo.id
+                    found_tasks = found_tasks.exclude(id=key)
+    else:
+        error_msg = 'Please enter keywords'
+
+    
+
+    context = {"error_msg": error_msg,
+               "query_string": query_string, "found_tasks": found_tasks}
+    return render(request, "todo/todo_search.html", context)
 
 
 @login_required
@@ -94,7 +141,7 @@ def todo_projectcreate(request):
     }
     return render(request, "todo/todo_projectcreate.html", context)
 
-
+@login_required
 def todo_projectupdate(request, id):
     project = Project.objects.get(id=id)
     form = ProjectForm(request.POST or None, instance=project)
@@ -106,7 +153,7 @@ def todo_projectupdate(request, id):
     }
     return render(request, "todo/todo_projectupdate.html", context)
 
-
+@login_required
 def todo_projectdelete(request, id):
     project = Project.objects.get(id=id)
     project.delete()
@@ -124,60 +171,9 @@ def todo_myprojecttask(request, id):
     return render(request, "todo/todo_myprojectTask.html", context)
 
 
-@login_required  # Tracy
-def todo_search(request):
-    todos = Todo.objects.all()
-    query_string = request.GET.get('search')
-    error_msg = ''
-    found_tasks = None
-    key = None
-    if query_string:
-        found_tasks = Todo.objects.filter(
-            Q(taskName__icontains=query_string) | Q(
-                taskDescription__icontains=query_string) | Q(project__projectName__icontains=query_string) | Q(
-                project__projectDescription__icontains=query_string)
-        )
-        
-    else:
-        error_msg = 'Please enter keywords'
-
-    if not request.user.is_superuser:
-        for todo in todos:
-            if todo.employee_id != request.user.id:
-                key = todo.id
-                found_tasks = found_tasks.exclude(id=key)
-
-    context = {"error_msg": error_msg,
-               "query_string": query_string, "found_tasks": found_tasks}
-    return render(request, "todo/todo_search.html", context)
 
 
-def todo_sortp(request):  # Tracy
-    todos = Todo.objects.order_by('taskPriority')
-    if not request.user.is_superuser:
-        for todo in todos:
-            if todo.employee_id != request.user.id:
-                key = todo.id
-                todos = todos.filter(~Q(id=key))
-    context = {
-        "todo_list": todos
-    }
-    return render(request, "todo/todo_sortp.html", context)
-
-
-def todo_sortdate(request):  # Tracy
-    todos = Todo.objects.order_by('taskDueDate')
-    if not request.user.is_superuser:
-        for todo in todos:
-            if todo.employee_id != request.user.id:
-                key = todo.id
-                todos = todos.filter(~Q(id=key))
-    context = {
-        "todo_list": todos
-    }
-    return render(request, "todo/todo_sortdate.html", context)
-
-
+@login_required
 def todo_sortmyprojectdate(request):  # Tracy
     projects = Project.objects.order_by('endDate')
     context = {
