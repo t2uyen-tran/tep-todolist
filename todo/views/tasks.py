@@ -48,7 +48,7 @@ def todo_update(request, id):  # Tracy
     form = TodoForm_update(request.POST or None, instance=todo)
     if form.is_valid():
         form.save()
-        return redirect("/")
+        return redirect("/todo/mytask")
     context = {
         "form": form
     }
